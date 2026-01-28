@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sweet 16 Cruise</title>
 
     <link rel="stylesheet" href="css/styles.css" />
 
@@ -42,11 +41,9 @@
                 Countdown to <span class="script">Sail Away</span>
             </h1>
 
-            <div class="countdown" id="countdown" aria-live="polite">
-                <div class="timebox"><div class="num" id="cd-days">--</div><div class="lbl">Days</div></div>
-                <div class="timebox"><div class="num" id="cd-hours">--</div><div class="lbl">Hours</div></div>
-                <div class="timebox"><div class="num" id="cd-mins">--</div><div class="lbl">Minutes</div></div>
-                <div class="timebox"><div class="num" id="cd-secs">--</div><div class="lbl">Seconds</div></div>
+            <div class="countdownLine" aria-live="polite">
+                <span class="num" id="cd-line">--:--:--:--</span>
+                <div class="lbl">DAYS : HOURS : MINUTES : SECONDS</div>
             </div>
 
             <p class="hero__subtitle subtle">

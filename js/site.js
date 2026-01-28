@@ -11,7 +11,7 @@
         { href: "day-6.html", label: "Day 6" },
         { href: "day-7.html", label: "Day 7" },
         { href: "ship-video.html", label: "Ship Video" },
-        { href: "deck-plans.html", label: "Deck Plans" }
+        { href: "https://www.ncl.com/cruise-ships/norwegian-viva/deck-plans#filter=deck-15", label: "Deck Plans", external: true }
     ];
 
     // ---------- Shared Header / Hamburger ----------
@@ -29,7 +29,10 @@
           <div class="menu__inner">
             <div class="menu__title">Navigate</div>
             <nav class="menu__links">
-              ${links.map(l => `<a href="${l.href}">${l.label}</a>`).join("")}
+              ${links.map(l => {
+                  const attrs = l.external ? ` target="_blank" rel="noopener noreferrer"` : "";
+                  return `<a href="${l.href}"${attrs}>${l.label}</a>`;
+              }).join("")}
             </nav>
           </div>
         </div>
@@ -69,14 +72,9 @@
     }
 
     // ---------- Countdown (only runs if elements exist) ----------
-    const elDays = document.getElementById("cd-days");
-    const elHours = document.getElementById("cd-hours");
-    const elMins = document.getElementById("cd-mins");
-    const elSecs = document.getElementById("cd-secs");
+    const elLine = document.getElementById("cd-line");
 
-    if (elDays && elHours && elMins && elSecs) {
-        // Feb 28, 2026 @ 4:00 PM Central (CST is -06:00)
-        // If your event is in 2025 instead, change 2026 -> 2025.
+    if (elLine) {
         const target = new Date("2026-02-28T16:00:00-06:00").getTime();
 
         const pad2 = (n) => String(n).padStart(2, "0");
@@ -93,13 +91,11 @@
             diff -= mins * (1000 * 60);
             const secs = Math.floor(diff / 1000);
 
-            elDays.textContent = String(days);
-            elHours.textContent = pad2(hours);
-            elMins.textContent = pad2(mins);
-            elSecs.textContent = pad2(secs);
+            elLine.textContent = `${days}:${pad2(hours)}:${pad2(mins)}:${pad2(secs)}`;
         };
 
         tick();
         setInterval(tick, 1000);
     }
+
 })();
