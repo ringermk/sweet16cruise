@@ -1,11 +1,152 @@
-﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+﻿<!doctype html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Packing List – Sweet 16 Cruise</title>
 
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Fonts already used on your site -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="site-header"></div>
+
+    <main class="page pack">
+        <header class="pack__header">
+            <figure class="pack__image">
+                <img src="assets/img/packing-luggage.jpg" alt="Open suitcase packed for a cruise">
+
+                <div class="pack__imageOverlay">
+                    <h1 class="pack__headline">
+                        Pack smart.<br>
+                        Cruise hard.
+                    </h1>
+
+                    <blockquote class="pack__quote">
+                        <p class="pack__quoteText quoteScript">
+                            “If you wish to travel far and fast, travel light. Take off all your envies, jealousies,
+                            unforgiveness, selfishness and fears.”
+                        </p>
+                        <footer class="pack__quoteAuthor">— Cesare Pavese</footer>
+                    </blockquote>
+                </div>
+            </figure>
+        </header>
+
+        <section class="card pack__card">
+            <section class="pack__rules infographic">
+                <div class="infoCard">
+                    <span class="icon">🧳</span>
+                    <h3>Two Checked Bags</h3>
+                    <p>Up to 2 bags per person</p>
+                </div>
+
+                <div class="infoCard">
+                    <span class="icon">⚖️</span>
+                    <h3>50 lb Limit</h3>
+                    <p>Per checked bag</p>
+                </div>
+
+                <div class="infoCard">
+                    <span class="icon">🛏</span>
+                    <h3>Under-Bed Storage</h3>
+                    <p>Smaller bags fit best</p>
+                </div>
+
+                <div class="infoCard">
+                    <span class="icon">🎒</span>
+                    <h3>Carry-On Allowed</h3>
+                    <p>1 carry-on + 1 personal item</p>
+                </div>
+
+                <div class="infoCard">
+                    <span class="icon">📏</span>
+                    <h3>Carry-On Size</h3>
+                    <p>24″ × 18″ × 9″ max</p>
+                </div>
+
+                <div class="infoCard">
+                    <span class="icon">⏰</span>
+                    <h3>Timing Matters</h3>
+                    <p>Carry-on needed day 1 & last day</p>
+                </div>
+            </section>
+        </section>
+
+        <section class="card pack__card">
+            <h2 class="pack__h2">Checklist</h2>
+            <p class="pack__note">Tap/click items as you pack. (It’s satisfying. Trust me.)</p>
+
+            <ul class="checklist" id="packingChecklist">
+                <li><label><input type="checkbox"> passport / $$$ / documents / keys</label></li>
+                <li><label><input type="checkbox"> waterproof watch</label></li>
+                <li><label><input type="checkbox"> Sunglasses</label></li>
+                <li><label><input type="checkbox"> face wash</label></li>
+                <li><label><input type="checkbox"> moisturizer</label></li>
+                <li><label><input type="checkbox"> toothbrush / toothpaste / floss</label></li>
+                <li><label><input type="checkbox"> perfume</label></li>
+                <li><label><input type="checkbox"> deodorant</label></li>
+                <li><label><input type="checkbox"> makeup</label></li>
+                <li><label><input type="checkbox"> shampoo / conditioner / body gel</label></li>
+                <li><label><input type="checkbox"> brush / comb</label></li>
+                <li><label><input type="checkbox"> hair dryer</label></li>
+                <li><label><input type="checkbox"> hair clips / ties</label></li>
+                <li><label><input type="checkbox"> hats / caps</label></li>
+                <li><label><input type="checkbox"> SUNSCREEN (idc how dark your skin is, wear it!)</label></li>
+                <li><label><input type="checkbox"> Tote bag</label></li>
+                <li><label><input type="checkbox"> garbage bags (dirty laundry)</label></li>
+                <li><label><input type="checkbox"> jewelry</label></li>
+                <li><label><input type="checkbox"> camera / memory cards / extra batteries</label></li>
+                <li><label><input type="checkbox"> cell phone & charger</label></li>
+                <li><label><input type="checkbox"> Ear plugs (I'll bring a bunch)</label></li>
+                <li><label><input type="checkbox"> Books / Cards / Games</label></li>
+                <li><label><input type="checkbox"> Shorts / Pants</label></li>
+                <li><label><input type="checkbox"> Shirts / Blouses</label></li>
+                <li><label><input type="checkbox"> Shoes</label></li>
+                <li><label><input type="checkbox"> Unmentionables</label></li>
+                <li><label><input type="checkbox"> Swimsuit</label></li>
+                <li><label><input type="checkbox"> Swim Sandals</label></li>
+            </ul>
+
+            <div class="pack__actions">
+                <button class="btn btn--primary" type="button" id="savePacking">Save my progress</button>
+                <button class="btn btn--ghost" type="button" id="clearPacking">Clear</button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Reminder: the goal is “prepared,” not “moving into the cabin.” 😉</p>
+        </footer>
+    </main>
+
+    <script src="js/site.js" defer></script>
+
+    <!-- Tiny optional helper: save checklist to localStorage -->
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const key = "sweet16_packing_checks";
+      const boxes = Array.from(document.querySelectorAll("#packingChecklist input[type='checkbox']"));
+      const saved = JSON.parse(localStorage.getItem(key) || "[]");
+
+      boxes.forEach((box, i) => box.checked = !!saved[i]);
+
+      document.getElementById("savePacking")?.addEventListener("click", () => {
+        const state = boxes.map(b => b.checked);
+        localStorage.setItem(key, JSON.stringify(state));
+        alert("Saved ✅");
+      });
+
+      document.getElementById("clearPacking")?.addEventListener("click", () => {
+        boxes.forEach(b => b.checked = false);
+        localStorage.removeItem(key);
+      });
+    });
+    </script>
 </body>
 </html>
