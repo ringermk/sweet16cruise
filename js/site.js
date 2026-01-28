@@ -3,6 +3,7 @@
         { href: "index.html", label: "Home" },
         { href: "packing.html", label: "Packing List" },
         { href: "day-0.html", label: "Day 0 (Travel Day)" },
+        //{ href: "stateroom.html", label: "Stateroom" },
         //{ href: "day-1.html", label: "Day 1" },
         //{ href: "day-2.html", label: "Day 2" },
         //{ href: "day-3.html", label: "Day 3" },

@@ -1,11 +1,449 @@
 ﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <title>Day 0 — Travel Day</title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Fonts (match homepage) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        /* Page-only extras that match your vibe */
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .grid2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kicker {
+            margin: 0 0 6px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            font-size: .85rem;
+        }
+
+        .bingo {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 700px) {
+            .bingo {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .tile {
+            user-select: none;
+            padding: 14px 10px;
+            border-radius: 16px;
+            background: rgba(255,255,255,.045);
+            border: 1px solid rgba(255,255,255,.10);
+            text-align: center;
+            line-height: 1.15;
+            cursor: pointer;
+            transition: transform .12s ease, background .12s ease, border-color .12s ease;
+            min-height: 78px;
+            display: grid;
+            align-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .tile:hover {
+                transform: translateY(-1px);
+                background: rgba(42,168,255,.08);
+                border-color: rgba(42,168,255,.28);
+            }
+
+            .tile.is-on {
+                background: rgba(0,209,199,.10);
+                border-color: rgba(0,209,199,.35);
+                box-shadow: 0 10px 26px rgba(0,0,0,.28);
+            }
+
+                .tile.is-on::after {
+                    content: "✓";
+                    position: absolute;
+                    top: 8px;
+                    right: 10px;
+                    font-weight: 900;
+                    color: var(--accent2);
+                    opacity: .95;
+                }
+
+        .miniList {
+            margin: 10px 0 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .spacer {
+            height: 12px;
+        }
+
+        .address {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: .92rem;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.10);
+            padding: 10px 12px;
+            border-radius: 14px;
+            display: inline-block;
+        }
+
+        .pillRow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .pill {
+            padding: 10px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.10);
+            color: rgba(245,247,255,.92);
+            font-weight: 700;
+            letter-spacing: .02em;
+            font-size: .9rem;
+        }
+        /* Hotel hero card */
+        .hotelHero {
+            position: relative;
+            padding: 0; /* we'll manage padding inside */
+            overflow: hidden;
+            border-radius: 18px;
+        }
+
+            /* Background image layer */
+            .hotelHero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-image: url("assets/img/studio6-galveston.jpg");
+                background-size: cover;
+                background-position: center;
+                filter: saturate(1.05) contrast(1.05);
+                transform: scale(1.03);
+                z-index: 0;
+            }
+
+            /* Dark overlay for readable text */
+            .hotelHero::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.35) 35%, rgba(0,0,0,.70)), radial-gradient(circle at 20% 15%, rgba(0,209,199,.14), rgba(0,0,0,0) 40%), radial-gradient(circle at 75% 55%, rgba(42,168,255,.14), rgba(0,0,0,0) 45%);
+                z-index: 1;
+            }
+
+            /* Keep content above overlays */
+            .hotelHero > * {
+                position: relative;
+                z-index: 2;
+            }
+
+        /* Inner layout + spacing */
+        .hotelHero__inner {
+            padding: 16px;
+        }
+
+        /* Title row */
+        .hotelHero__title {
+            margin: 0 0 10px;
+            font-size: 1.25rem;
+            letter-spacing: .02em;
+        }
+
+        /* A glass panel for the details */
+        .hotelHero__panel {
+            max-width: 720px;
+            background: rgba(10,12,16,.62);
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 18px;
+            padding: 14px 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Optional: make the list a little tighter */
+        .hotelHero .miniList {
+            margin: 10px 0 0;
+        }
+
+        .hotelHero__inner {
+            padding: 22px;
+            min-height: 360px;
+            display: grid;
+            align-content: end;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="site-header"></div>
+
+    <main class="page pack">
+        <p class="kicker">Day 0</p>
+        <h1 class="page__title">Travel Day — The Journey Begins</h1>
+
+        <div class="tldr">
+            Today is the “we’re really doing this” day: Shawnee → Wichita → Galveston. One night of sleep… then we sail.
+        </div>
+
+        <section class="grid2">
+            <div class="card pack__card">
+                <h2 class="pack__h2">Our Plan</h2>
+                <p class="pack__note">
+                    Marianne heads out before sunrise, picks up Joey & Jaekin in Wichita, and then the road trip officially begins.
+                </p>
+
+                <div class="spacer"></div>
+
+                <h2 class="pack__h2">Route Map</h2>
+                <p class="pack__note">Shawnee → Wichita → Studio 6 (Galveston). You can zoom and explore.</p>
+
+                <div class="embed tall" aria-label="Route map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m34!1m12!1m3!1d6766846.6825881135!2d-101.41469232221505!3d34.091954585037925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m19!3e0!4m5!1s0x87c092da8c8d7cdb%3A0xe612f6597048fc05!2s5709%20Hauser%20St%2C%20Shawnee%2C%20KS%2066216!3m2!1d39.024916499999996!2d-94.7392639!4m5!1s0x87bade7ffd0bf077%3A0x1c3a59fb8d2e2a65!2s12018%20W%20Jewell%20Ct%2C%20Wichita%2C%20KS%2067235!3m2!1d37.6570187!2d-97.4813332!4m5!1s0x863f9d0120dbd0ff%3A0x8def77c8761c5bb9!2s7404%20Avenue%20J%2C%20Galveston%2C%20TX%2077554!3m2!1d29.2882166!2d-94.8548589!5e0!3m2!1sen!2sus!4v1769642075846!5m2!1sen!2sus"
+                            width="600" height="450" style="border:0;"
+                            allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+            <aside class="card pack__card">
+                <h2 class="pack__h2">Travel Snapshot</h2>
+                <p class="pack__note">Little reminders of what today feels like.</p>
+
+                <div class="infographic">
+                    <div class="infoCard">
+                        <span class="icon">🗺️</span>
+                        <h3>Mission</h3>
+                        <p>Get to Galveston, check in, and wake up ready to board.</p>
+                    </div>
+                    <div class="infoCard">
+                        <span class="icon">🎧</span>
+                        <h3>DJ Rules</h3>
+                        <p>Jaekin gets a playlist block. No skips… unless it’s truly criminal.</p>
+                    </div>
+                    <div class="infoCard">
+                        <span class="icon">🥨</span>
+                        <h3>Snack Energy</h3>
+                        <p>Road trip snacks are basically a travel tradition.</p>
+                    </div>
+                    <div class="infoCard">
+                        <span class="icon">📸</span>
+                        <h3>Photo Moment</h3>
+                        <p>First “We’re on our way!” selfie when we leave Wichita.</p>
+                    </div>
+                </div>
+
+                <div class="spacer"></div>
+
+                <details class="details">
+                    <summary>“Day 0” tiny traditions (tap)</summary>
+                    <p>
+                        • Name the trip playlist<br />
+                        • Pick a “quote of the day”<br />
+                        • Vote: first stop = coffee or snacks?
+                    </p>
+                </details>
+            </aside>
+        </section>
+
+        <section class="card pack__card">
+            <h2 class="pack__h2">Road Trip Bingo <span class="script">🧿</span></h2>
+            <p class="pack__note">Tap squares as you spot them. Your progress saves automatically on this device.</p>
+
+            <div class="bingo" id="bingo">
+                <!-- 25 tiles -->
+                <div class="tile" data-k="b1">Buc-ee’s sighting</div>
+                <div class="tile" data-k="b2">Texas flag</div>
+                <div class="tile" data-k="b3">Big bridge</div>
+                <div class="tile" data-k="b4">Cows</div>
+                <div class="tile" data-k="b5">Road construction</div>
+
+                <div class="tile" data-k="b6">“Are we there yet?”</div>
+                <div class="tile" data-k="b7">Gas station snack haul</div>
+                <div class="tile" data-k="b8">Someone naps 😴</div>
+                <div class="tile" data-k="b9">Windmills</div>
+                <div class="tile" data-k="b10">Toll road moment</div>
+
+                <div class="tile" data-k="b11">Funny billboard</div>
+                <div class="tile" data-k="b12">Playlist debate</div>
+                <div class="tile" data-k="b13">Free Space 🌊</div>
+                <div class="tile" data-k="b14">We cross a state line</div>
+                <div class="tile" data-k="b15">Group selfie</div>
+
+                <div class="tile" data-k="b16">New accent spotted</div>
+                <div class="tile" data-k="b17">Extra-large pickup truck</div>
+                <div class="tile" data-k="b18">Clouds look unreal</div>
+                <div class="tile" data-k="b19">“Stop touching me”</div>
+                <div class="tile" data-k="b20">Unexpected detour</div>
+
+                <div class="tile" data-k="b21">We see water</div>
+                <div class="tile" data-k="b22">Beach sign</div>
+                <div class="tile" data-k="b23">Hotel spotted!</div>
+                <div class="tile" data-k="b24">Late-night snack</div>
+                <div class="tile" data-k="b25">“Tomorrow we board!”</div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn--ghost" id="bingoReset" type="button">Reset Bingo</button>
+                <a class="btn btn--primary" href="day-1.html">Next: Embarkation Day →</a>
+            </div>
+        </section>
+
+        <section class="card pack__card">
+            <h2 class="pack__h2">Car-Day Checklist</h2>
+            <p class="pack__note">Stuff you’ll want within arm’s reach (tap to check off). Saves automatically.</p>
+
+            <ul class="checklist" id="carChecklist">
+                <li><label><input type="checkbox" data-k="c1"> Phone charger / battery pack</label></li>
+                <li><label><input type="checkbox" data-k="c2"> Hoodie (A/C is dramatic)</label></li>
+                <li><label><input type="checkbox" data-k="c3"> Headphones</label></li>
+                <li><label><input type="checkbox" data-k="c4"> Water bottle</label></li>
+                <li><label><input type="checkbox" data-k="c5"> Snacks</label></li>
+                <li><label><input type="checkbox" data-k="c6"> Sunglasses</label></li>
+                <li><label><input type="checkbox" data-k="c7"> Lip balm</label></li>
+                <li><label><input type="checkbox" data-k="c8"> Something cozy for the hotel</label></li>
+            </ul>
+
+            <div class="actions">
+                <button class="btn btn--ghost" id="checkReset" type="button">Reset Checklist</button>
+            </div>
+        </section>
+
+        <section class="card pack__card hotelHero">
+            <div class="hotelHero__inner">
+                <h2 class="pack__h2 hotelHero__title">Tonight’s Hotel</h2>
+
+                <div class="hotelHero__panel">
+                    <p>
+                        <strong>Studio 6 Galveston, TX</strong><br>
+                        <span class="muted">7404 Avenue J, Galveston, TX 77554</span>
+                    </p>
+
+                    <ul class="miniList">
+                        <li><strong>Check-in:</strong> Friday, February 27, 2026</li>
+                        <li><strong>Check-out:</strong> Saturday, February 28, 2026</li>
+                        <li><strong>Confirmation:</strong> LLF673FZOI</li>
+                        <li><strong>Phone:</strong> 409-740-3794</li>
+                    </ul>
+
+                    <div class="actions" style="margin-top:12px;">
+                        <a class="btn btn--primary" target="_blank" rel="noopener"
+                           href="https://www.google.com/maps/search/?api=1&query=Studio+6+Galveston,+7404+Avenue+J,+Galveston,+TX+77554">
+                            Open in Maps →
+                        </a>
+
+                        <a class="btn btn--ghost" target="_blank" rel="noopener"
+                           href="https://www.google.com/maps/dir/?api=1&destination=Studio+6+Galveston,+7404+Avenue+J,+Galveston,+TX+77554&travelmode=driving">
+                            Get Directions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <footer class="footer">
+            Made with ocean vibes + birthday energy 💙
+        </footer>
+    </main>
+
+    <script src="js/site.js" defer></script>
+
+    <script>
+    // --- Road Trip Bingo (localStorage) ---
+    const bingoKey = "day0_bingo";
+    const bingoRoot = document.getElementById("bingo");
+    const bingoReset = document.getElementById("bingoReset");
+
+    function loadBingo() {
+      try { return JSON.parse(localStorage.getItem(bingoKey) || "{}"); }
+      catch { return {}; }
+    }
+    function saveBingo(state) {
+      localStorage.setItem(bingoKey, JSON.stringify(state));
+    }
+
+    if (bingoRoot) {
+      const state = loadBingo();
+      bingoRoot.querySelectorAll(".tile").forEach(tile => {
+        const k = tile.getAttribute("data-k");
+        if (state[k]) tile.classList.add("is-on");
+
+        tile.addEventListener("click", () => {
+          tile.classList.toggle("is-on");
+          state[k] = tile.classList.contains("is-on");
+          saveBingo(state);
+        });
+      });
+
+      if (bingoReset) {
+        bingoReset.addEventListener("click", () => {
+          bingoRoot.querySelectorAll(".tile").forEach(t => t.classList.remove("is-on"));
+          saveBingo({});
+        });
+      }
+    }
+
+    // --- Car Checklist (localStorage) ---
+    const checkKey = "day0_checklist";
+    const checkRoot = document.getElementById("carChecklist");
+    const checkReset = document.getElementById("checkReset");
+
+    function loadChecks() {
+      try { return JSON.parse(localStorage.getItem(checkKey) || "{}"); }
+      catch { return {}; }
+    }
+    function saveChecks(state) {
+      localStorage.setItem(checkKey, JSON.stringify(state));
+    }
+
+    if (checkRoot) {
+      const cstate = loadChecks();
+      checkRoot.querySelectorAll("input[type='checkbox']").forEach(cb => {
+        const k = cb.getAttribute("data-k");
+        cb.checked = !!cstate[k];
+
+        cb.addEventListener("change", () => {
+          cstate[k] = cb.checked;
+          saveChecks(cstate);
+        });
+      });
+
+      if (checkReset) {
+        checkReset.addEventListener("click", () => {
+          checkRoot.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
+          saveChecks({});
+        });
+      }
+    }
+    </script>
 </body>
 </html>
