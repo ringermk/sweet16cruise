@@ -1,11 +1,78 @@
 ﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sweet 16 Cruise</title>
 
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Optional: Google Fonts (clean + edgy) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="brand">Sweet 16 Cruise</div>
+        <nav class="nav">
+            <a href="packing.html">Packing</a>
+            <a href="day-0.html">Day 0</a>
+            <a href="day-1.html">Day 1</a>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <!-- Background video (desktop) -->
+        <video class="hero__video"
+               autoplay
+               muted
+               loop
+               playsinline
+               preload="metadata"
+               poster="assets/img/hero-mobile.png">
+            <source src="assets/video/hero-desktop.mp4" type="video/mp4" />
+        </video>
+
+        <!-- Fallback background image for mobile -->
+        <div class="hero__image" aria-hidden="true"></div>
+
+        <!-- Dark overlay for readability -->
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <!-- Content -->
+        <section class="hero__content">
+            <p class="hero__kicker">Caribbean • Birthday Edition</p>
+
+            <h1 class="hero__title">
+                Sweet <span class="script">16</span> Cruise
+            </h1>
+
+            <p class="hero__subtitle">
+                Travel plans, daily itinerary, packing list, and all the vibes.
+            </p>
+
+            <div class="hero__actions">
+                <a class="btn btn--primary" href="day-0.html">Start Here: Travel Day</a>
+                <a class="btn btn--ghost" href="packing.html">Packing List</a>
+            </div>
+
+            <div class="hero__quicklinks">
+                <a href="day-0.html">Day 0</a>
+                <a href="day-1.html">Day 1</a>
+                <a href="day-2.html">Day 2</a>
+                <a href="day-3.html">Day 3</a>
+                <a href="day-4.html">Day 4</a>
+                <a href="day-5.html">Day 5</a>
+                <a href="day-6.html">Day 6</a>
+                <a href="day-7.html">Day 7</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <small>✨ Built with love for an unforgettable Sweet 16.</small>
+    </footer>
 </body>
 </html>

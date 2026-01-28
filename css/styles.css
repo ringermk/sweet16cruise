@@ -1,3 +1,217 @@
-﻿body
-{
+﻿:root {
+    --bg: #0b0c10;
+    --text: #f5f7ff;
+    --muted: rgba(245,247,255,.8);
+    --overlay: rgba(0,0,0,.55);
+    --card: rgba(10,12,16,.45);
+    --accent: #00d1c7; /* Caribbean teal */
+    --accent2: #ff3ea5; /* Hot pink pop */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* Top bar */
+.topbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(0,0,0,.65), rgba(0,0,0,0));
+}
+
+.brand {
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.nav a {
+    color: var(--text);
+    text-decoration: none;
+    margin-left: 14px;
+    opacity: .9;
+}
+
+    .nav a:hover {
+        opacity: 1;
+    }
+
+/* Hero */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    align-items: center;
+    padding: 96px 18px 36px; /* leaves room for topbar */
+    overflow: hidden;
+}
+
+/* Desktop video layer */
+.hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    z-index: 0;
+}
+
+/* Mobile image layer (hidden on desktop) */
+.hero__image {
+    position: absolute;
+    inset: 0;
+    background-image: url("../assets/img/hero-mobile.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    display: none;
+}
+
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(0,209,199,.15), rgba(0,0,0,0) 40%), radial-gradient(circle at 70% 60%, rgba(255,62,165,.12), rgba(0,0,0,0) 45%), var(--overlay);
+    z-index: 1;
+}
+
+.hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 18px 18px 22px;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+}
+
+.hero__kicker {
+    margin: 0 0 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .85rem;
+}
+
+.hero__title {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.05;
+}
+
+.script {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    color: var(--accent2);
+    margin-left: .15em;
+}
+
+.hero__subtitle {
+    margin: 14px 0 18px;
+    color: var(--muted);
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    line-height: 1.45;
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 16px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: .3px;
+    border: 1px solid rgba(255,255,255,.16);
+}
+
+.btn--primary {
+    background: linear-gradient(135deg, rgba(0,209,199,.95), rgba(255,62,165,.85));
+    color: #0b0c10;
+    border: none;
+}
+
+.btn--ghost {
+    color: var(--text);
+    background: rgba(255,255,255,.06);
+}
+
+.hero__quicklinks {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+}
+
+    .hero__quicklinks a {
+        color: var(--text);
+        text-decoration: none;
+        opacity: .9;
+        border-bottom: 1px dashed rgba(255,255,255,.25);
+    }
+
+        .hero__quicklinks a:hover {
+            opacity: 1;
+        }
+
+.footer {
+    text-align: center;
+    padding: 14px 18px 24px;
+    color: rgba(245,247,255,.65);
+}
+
+/* Mobile behavior:
+   - Hide video (autoplay restrictions + performance)
+   - Show image
+*/
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+    /* optional: simplify top nav on small screens */
+    .hero__video {
+        display: none;
+    }
+
+    .hero__image {
+        display: block;
+    }
+
+    .hero__content {
+        padding: 16px;
+    }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .hero__video {
+        display: none;
+    }
+
+    .hero__image {
+        display: block;
+    }
 }
