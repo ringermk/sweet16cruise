@@ -1,11 +1,437 @@
 ﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <title>Stateroom — Family Balcony</title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Fonts (match homepage) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        /* Page layout helpers */
+        .kicker {
+            margin: 0 0 6px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            font-size: .85rem;
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .grid2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hero image card */
+        .roomHero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(10,12,16,.55);
+            backdrop-filter: blur(10px);
+            min-height: 360px;
+        }
+
+        .roomHero__bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.03);
+            filter: saturate(1.05) contrast(1.05);
+            z-index: 0;
+        }
+
+        .roomHero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.70)), radial-gradient(circle at 25% 20%, rgba(0,209,199,.16), rgba(0,0,0,0) 45%), radial-gradient(circle at 75% 55%, rgba(42,168,255,.16), rgba(0,0,0,0) 50%);
+            z-index: 1;
+        }
+
+        .roomHero__content {
+            position: relative;
+            z-index: 2;
+            padding: 18px;
+            display: grid;
+            align-content: end;
+            gap: 10px;
+            min-height: 360px;
+        }
+
+        .roomHero__title {
+            margin: 0;
+            font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+            line-height: 1.05;
+            text-shadow: 0 10px 28px rgba(0,0,0,.55);
+        }
+
+        .roomHero__sub {
+            margin: 0;
+            color: rgba(245,247,255,.88);
+            line-height: 1.5;
+            max-width: 70ch;
+        }
+
+        /* “chips” */
+        .chipRow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .chip {
+            padding: 10px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            color: rgba(245,247,255,.92);
+            font-weight: 800;
+            letter-spacing: .02em;
+            font-size: .9rem;
+        }
+
+            .chip strong {
+                color: var(--accent2);
+            }
+
+        /* Stats grid */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        @media (max-width: 520px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .statCard {
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 18px;
+            padding: 14px 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .statLabel {
+            margin: 0;
+            font-size: .78rem;
+            opacity: .8;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: rgba(245,247,255,.85);
+        }
+
+        .statValue {
+            margin: 8px 0 0;
+            font-weight: 900;
+            letter-spacing: .02em;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 12px;
+        }
+
+        .gItem {
+            grid-column: span 6;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.04);
+            box-shadow: 0 16px 46px rgba(0,0,0,.45);
+            cursor: pointer;
+            position: relative;
+        }
+
+            .gItem.large {
+                grid-column: span 12;
+            }
+
+        @media (max-width: 900px) {
+            .gItem, .gItem.large {
+                grid-column: span 12;
+            }
+        }
+
+        .gItem img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+            transform: scale(1.01);
+        }
+
+        .gItem::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.35));
+            pointer-events: none;
+            opacity: .9;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.78);
+            z-index: 999;
+            display: none;
+            padding: 18px;
+        }
+
+            .lightbox.is-open {
+                display: grid;
+            }
+
+        .lightbox__inner {
+            margin: auto;
+            max-width: min(1100px, 96vw);
+            width: 100%;
+            background: rgba(10,12,16,.55);
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            box-shadow: 0 26px 70px rgba(0,0,0,.6);
+            position: relative;
+        }
+
+        .lightbox__img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+            max-height: 82vh;
+            object-fit: contain;
+        }
+
+        .lightbox__bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 12px;
+            border-top: 1px solid rgba(255,255,255,.10);
+            background: rgba(255,255,255,.03);
+        }
+
+        .lightbox__cap {
+            color: rgba(245,247,255,.85);
+            font-weight: 700;
+            opacity: .9;
+        }
+
+        .iconBtn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,.16);
+            background: rgba(255,255,255,.06);
+            color: var(--text);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            font-weight: 900;
+        }
+
+            .iconBtn:hover {
+                background: rgba(42,168,255,.12);
+                border-color: rgba(42,168,255,.30);
+            }
+    </style>
+</head>
+
+<body>
+    <div id="site-header"></div>
+
+    <main class="page pack">
+        <h1 class="page__title">Stateroom - Family Balcony </h1>
+
+        <section class="grid2">
+            <!-- Left: big hero image -->
+            <div class="roomHero">
+                <div class="roomHero__bg" style="background-image:url('assets/img/stateroom1.jpg');"></div>
+                <div class="roomHero__overlay" aria-hidden="true"></div>
+
+                <div class="roomHero__content">
+                    <h2 class="roomHero__title">Our Home at Sea</h2>
+                    <p class="roomHero__sub">
+                        This is where we’ll recharge, do outfit checks, laugh about the day, and step outside to ocean air whenever we want.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: stats -->
+            <aside class="card pack__card">
+                <h2 class="pack__h2">Room Details</h2>
+                <p class="pack__note">The official details (aka: the important stuff).</p>
+
+                <div class="stats">
+                    <div class="statCard">
+                        <p class="statLabel">Stateroom</p>
+                        <p class="statValue">15124</p>
+                    </div>
+
+                    <div class="statCard">
+                        <p class="statLabel">Deck</p>
+                        <p class="statValue">15</p>
+                    </div>
+
+                    <div class="statCard">
+                        <p class="statLabel">Category</p>
+                        <p class="statValue">B4</p>
+                    </div>
+
+                    <div class="statCard">
+                        <p class="statLabel">Approx size</p>
+                        <p class="statValue">231 sq ft</p>
+                    </div>
+
+                    <div class="statCard">
+                        <p class="statLabel">View</p>
+                        <p class="statValue">Balcony</p>
+                    </div>
+
+                    <div class="statCard">
+                        <p class="statLabel">Accommodates</p>
+                        <p class="statValue">4</p>
+                    </div>
+                </div>
+
+                <div style="height:12px"></div>
+
+                <div class="actions">
+                    <a class="btn btn--primary" href="itinerary.html">Back to Itinerary →</a>
+                    <a class="btn btn--ghost" href="packing.html">Packing List</a>
+                </div>
+            </aside>
+        </section>
+
+        <!-- Gallery -->
+        <section class="card pack__card">
+            <h2 class="pack__h2">Photo Tour</h2>
+            <p class="pack__note">Tap any photo to view it full screen.</p>
+
+            <div class="gallery" id="gallery">
+                <div class="gItem large" data-i="0"><img src="assets/img/stateroom1.jpg" alt="Stateroom main view"></div>
+                <div class="gItem" data-i="1"><img src="assets/img/stateroom2.jpg" alt="Bathroom view"></div>
+                <div class="gItem" data-i="2"><img src="assets/img/stateroom3.jpg" alt="Closet and vanity area"></div>
+                <div class="gItem" data-i="3"><img src="assets/img/stateroom4.jpg" alt="Floor plan view"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <div class="lightbox__inner">
+            <img class="lightbox__img" id="lbImg" alt="">
+            <div class="lightbox__bar">
+                <div class="lightbox__cap" id="lbCap">Photo</div>
+                <div style="display:flex; gap:10px;">
+                    <button class="iconBtn" id="lbPrev" type="button" aria-label="Previous">‹</button>
+                    <button class="iconBtn" id="lbNext" type="button" aria-label="Next">›</button>
+                    <button class="iconBtn" id="lbClose" type="button" aria-label="Close">✕</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/site.js" defer></script>
+
+    <script>
+    // --- Simple gallery lightbox ---
+    const images = [
+      { src: "assets/img/stateroom1.jpg", cap: "Stateroom — main view" },
+      { src: "assets/img/stateroom2.jpg", cap: "Bathroom" },
+      { src: "assets/img/stateroom3.jpg", cap: "Closet + vanity area" },
+      { src: "assets/img/stateroom4.jpg", cap: "Floor plan" }
+    ];
+
+    const gallery = document.getElementById("gallery");
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbCap = document.getElementById("lbCap");
+    const lbPrev = document.getElementById("lbPrev");
+    const lbNext = document.getElementById("lbNext");
+    const lbClose = document.getElementById("lbClose");
+
+    let idx = 0;
+
+    function openLb(i) {
+      idx = i;
+      lbImg.src = images[idx].src;
+      lbImg.alt = images[idx].cap;
+      lbCap.textContent = images[idx].cap;
+      lb.classList.add("is-open");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLb() {
+      lb.classList.remove("is-open");
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function prevImg() {
+      idx = (idx - 1 + images.length) % images.length;
+      openLb(idx);
+    }
+
+    function nextImg() {
+      idx = (idx + 1) % images.length;
+      openLb(idx);
+    }
+
+    if (gallery) {
+      gallery.addEventListener("click", (e) => {
+        const tile = e.target.closest("[data-i]");
+        if (!tile) return;
+        openLb(parseInt(tile.getAttribute("data-i"), 10));
+      });
+    }
+
+    lbPrev.addEventListener("click", prevImg);
+    lbNext.addEventListener("click", nextImg);
+    lbClose.addEventListener("click", closeLb);
+
+    lb.addEventListener("click", (e) => {
+      // click outside image area closes
+      if (e.target === lb) closeLb();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (!lb.classList.contains("is-open")) return;
+      if (e.key === "Escape") closeLb();
+      if (e.key === "ArrowLeft") prevImg();
+      if (e.key === "ArrowRight") nextImg();
+    });
+    </script>
 </body>
 </html>
