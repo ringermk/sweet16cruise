@@ -14,8 +14,9 @@
 </head>
 
 <body>
+    <div id="site-header"></div>
     <header class="topbar">
-        <div class="brand">Sweet 16 Cruise</div>
+        <!--<div class="brand">Sweet 16 Cruise</div>-->
         <nav class="nav">
             <a href="packing.html">Packing</a>
             <a href="day-0.html">Day 0</a>
@@ -42,37 +43,25 @@
         <div class="hero__overlay" aria-hidden="true"></div>
 
         <!-- Content -->
-        <section class="hero__content">
-            <p class="hero__kicker">Caribbean • Birthday Edition</p>
+        <section class="hero__content center">
+            <p class="hero__kicker">How long until Jaekin’s Sweet 16 Cruise?</p>
 
             <h1 class="hero__title">
-                Sweet <span class="script">16</span> Cruise
+                Countdown to <span class="script">Sail Away</span>
             </h1>
 
-            <p class="hero__subtitle">
-                Travel plans, daily itinerary, packing list, and all the vibes.
+            <div class="countdown" id="countdown" aria-live="polite">
+                <div class="timebox"><div class="num" id="cd-days">--</div><div class="lbl">Days</div></div>
+                <div class="timebox"><div class="num" id="cd-hours">--</div><div class="lbl">Hours</div></div>
+                <div class="timebox"><div class="num" id="cd-mins">--</div><div class="lbl">Minutes</div></div>
+                <div class="timebox"><div class="num" id="cd-secs">--</div><div class="lbl">Seconds</div></div>
+            </div>
+
+            <p class="hero__subtitle subtle">
+                Target time: <strong>Feb 28 @ 4:00 PM (Central)</strong>
             </p>
-
-            <div class="hero__actions">
-                <a class="btn btn--primary" href="day-0.html">Start Here: Travel Day</a>
-                <a class="btn btn--ghost" href="packing.html">Packing List</a>
-            </div>
-
-            <div class="hero__quicklinks">
-                <a href="day-0.html">Day 0</a>
-                <a href="day-1.html">Day 1</a>
-                <a href="day-2.html">Day 2</a>
-                <a href="day-3.html">Day 3</a>
-                <a href="day-4.html">Day 4</a>
-                <a href="day-5.html">Day 5</a>
-                <a href="day-6.html">Day 6</a>
-                <a href="day-7.html">Day 7</a>
-            </div>
         </section>
     </main>
-
-    <footer class="footer">
-        <small>✨ Built with love for an unforgettable Sweet 16.</small>
-    </footer>
+    <script src="js/site.js" defer></script>
 </body>
 </html>
