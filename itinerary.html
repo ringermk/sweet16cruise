@@ -8,153 +8,11 @@
 
     <link rel="stylesheet" href="css/styles.css" />
 
-    <!-- Fonts (match homepage) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
 
     <style>
-        .kicker {
-            margin: 0 0 6px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .14em;
-            font-size: .85rem;
-        }
-
-        .sub {
-            margin: 10px 0 0;
-            color: var(--muted);
-            line-height: 1.55;
-        }
-
-        .dayList {
-            display: grid;
-            gap: 12px;
-        }
-
-        .day {
-            border: 1px solid rgba(255,255,255,.12);
-            background: rgba(255,255,255,.04);
-            border-radius: 18px;
-            overflow: hidden;
-        }
-
-        .day__summary {
-            cursor: pointer;
-            padding: 14px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .day__left {
-            display: grid;
-            gap: 6px;
-            min-width: 0;
-        }
-
-        .day__title {
-            margin: 0;
-            font-weight: 900;
-            letter-spacing: .02em;
-            font-size: 1.05rem;
-            color: rgba(245,247,255,.96);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .day__meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 10px;
-            color: var(--muted);
-            font-size: .92rem;
-        }
-
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 10px;
-            border-radius: 999px;
-            background: rgba(0,0,0,.18);
-            border: 1px solid rgba(255,255,255,.10);
-            color: rgba(245,247,255,.88);
-            font-weight: 800;
-            font-size: .85rem;
-            letter-spacing: .01em;
-        }
-
-            .pill .dot {
-                width: 8px;
-                height: 8px;
-                border-radius: 99px;
-                background: linear-gradient(90deg, var(--accent), var(--accent2));
-            }
-
-        .chev {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,.16);
-            background: rgba(255,255,255,.06);
-            display: grid;
-            place-items: center;
-            flex: 0 0 auto;
-        }
-
-        .day[open] .chev {
-            background: rgba(42,168,255,.12);
-            border-color: rgba(42,168,255,.30);
-        }
-
-        .day__body {
-            padding: 0 14px 14px;
-            border-top: 1px solid rgba(255,255,255,.10);
-        }
-
-        .rows {
-            margin-top: 12px;
-            display: grid;
-            gap: 10px;
-        }
-
-        .row {
-            padding: 12px 12px;
-            border-radius: 16px;
-            background: rgba(10,12,16,.45);
-            border: 1px solid rgba(255,255,255,.12);
-            display: grid;
-            gap: 6px;
-        }
-
-        .row__top {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .row__label {
-            font-weight: 900;
-            color: var(--accent);
-            letter-spacing: .02em;
-        }
-
-        .row__time {
-            color: rgba(245,247,255,.86);
-            font-weight: 800;
-        }
-
-        .row__note {
-            color: var(--muted);
-            line-height: 1.5;
-        }
-
         /* Port overview cards */
         .portGrid {
             display: grid;
@@ -211,11 +69,6 @@
             color: rgba(245,247,255,.90);
             line-height: 1.5;
         }
-
-        code {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-            font-size: .95em;
-        }
     </style>
 </head>
 
@@ -223,17 +76,17 @@
     <div id="site-header"></div>
 
     <main class="page pack">
-        <h1 class="page__title">Where We’re Going </h1>
-
-        <div class="tldr" id="tldrBox"></div>
+        <h1 class="page__title">Where We’re Going</h1>
 
         <div class="notice">
+            <strong>Sat, Feb 28 → Sat, Mar 07</strong><br />
+            6 port day(s) • 2 sea day(s)<br /><br />
+
             <strong>Heads up:</strong> Guests must be on board <strong>2 hours before sailing</strong>.
             Disembarkation usually begins <strong>2 hours after docking</strong>.
             Itineraries can change at any time without notice.
         </div>
 
-        <!-- Overview cards -->
         <section class="card pack__card">
             <h2 class="pack__h2">Stops & Sea Days</h2>
             <div class="portGrid" id="portGrid"></div>
@@ -243,206 +96,41 @@
     <script src="js/site.js" defer></script>
 
     <script>
-        // ====== Itinerary from your screenshot ======
-        // Sat Feb 28 -> Sat Mar 07
         const itineraryData = [
-            {
-                dayLabel: "Sat",
-                date: "Sat, Feb 28",
-                title: "Galveston, Texas (Embarkation)",
-                type: "Port Day",
-                arrive: "",
-                depart: "4:00 PM",
-                notes: "Board, explore the ship, find snacks, and catch sail away.",
-                bullets: [
-                    { label: "Be onboard by", time: "2:00 PM", note: "Rule of thumb: 2 hours before the 4:00 PM sail time." },
-                    { label: "Depart", time: "4:00 PM", note: "Sail away! Balcony moment recommended." }
-                ]
-            },
-            {
-                dayLabel: "Sun",
-                date: "Sun, Mar 01",
-                title: "At Sea",
-                type: "Sea Day",
-                arrive: "",
-                depart: "",
-                notes: "A full ship day: sleep in, explore, pool time, shows, snacks, repeat.",
-                bullets: [
-                    { label: "Goal", time: "", note: "Do a ship walk-through + pick your favorite hangout spot." },
-                    { label: "Pro tip", time: "", note: "Great day for photos (less rushing, more vibes)." }
-                ]
-            },
-            {
-                dayLabel: "Mon",
-                date: "Mon, Mar 02",
-                title: "Cozumel, Mexico",
-                type: "Port Day",
-                arrive: "7:30 AM",
-                depart: "4:30 PM",
-                notes: "Beach day energy. Get off early if you want the calmest start.",
-                bullets: [
-                    { label: "Arrive", time: "7:30 AM", note: "Early arrival = first pick of the fun stuff." },
-                    { label: "All aboard by", time: "2:30 PM", note: "2 hours before 4:30 PM departure." },
-                    { label: "Depart", time: "4:30 PM", note: "Back on board, shower, dinner, evening show?" }
-                ]
-            },
-            {
-                dayLabel: "Tue",
-                date: "Tue, Mar 03",
-                title: "Harvest Caye, Belize",
-                type: "Port Day",
-                arrive: "10:00 AM",
-                depart: "5:00 PM",
-                notes: "A later start — perfect for a slow morning before getting off the ship.",
-                bullets: [
-                    { label: "Arrive", time: "10:00 AM", note: "Easy morning: breakfast + final touch-ups." },
-                    { label: "All aboard by", time: "3:00 PM", note: "2 hours before 5:00 PM departure." },
-                    { label: "Depart", time: "5:00 PM", note: "Golden hour on the balcony if we’re lucky." }
-                ]
-            },
-            {
-                dayLabel: "Wed",
-                date: "Wed, Mar 04",
-                title: "Roatán (Bay Islands), Honduras",
-                type: "Port Day",
-                arrive: "7:00 AM",
-                depart: "5:00 PM",
-                notes: "Early arrival again — great day for a planned excursion or beach time.",
-                bullets: [
-                    { label: "Arrive", time: "7:00 AM", note: "Earlier than early. Coffee is a love language today." },
-                    { label: "All aboard by", time: "3:00 PM", note: "2 hours before 5:00 PM departure." },
-                    { label: "Depart", time: "5:00 PM", note: "Back on board = shower + comfy clothes." }
-                ]
-            },
-            {
-                dayLabel: "Thu",
-                date: "Thu, Mar 05",
-                title: "Costa Maya, Mexico",
-                type: "Port Day",
-                arrive: "7:00 AM",
-                depart: "1:00 PM",
-                notes: "Shorter port day — go early and keep an eye on the clock.",
-                bullets: [
-                    { label: "Arrive", time: "7:00 AM", note: "Early off = maximize the short stop." },
-                    { label: "All aboard by", time: "11:00 AM", note: "2 hours before 1:00 PM departure." },
-                    { label: "Depart", time: "1:00 PM", note: "Back onboard early = lunch on the ship!" }
-                ]
-            },
-            {
-                dayLabel: "Fri",
-                date: "Fri, Mar 06",
-                title: "At Sea",
-                type: "Sea Day",
-                arrive: "",
-                depart: "",
-                notes: "Last full sea day — do the ‘we’ll do it later’ stuff today.",
-                bullets: [
-                    { label: "Do this", time: "", note: "Final souvenir shopping + any shows you still want to see." },
-                    { label: "Pack tip", time: "", note: "Start packing a little tonight so tomorrow isn’t chaos." }
-                ]
-            },
-            {
-                dayLabel: "Sat",
-                date: "Sat, Mar 07",
-                title: "Galveston, Texas (Flight Departure)",
-                type: "Port Day",
-                arrive: "8:00 AM",
-                depart: "",
-                notes: "Docking + disembarkation day. Expect disembarkation to start after docking.",
-                bullets: [
-                    { label: "Arrive/Dock", time: "8:00 AM", note: "Docking time shown on itinerary." },
-                    { label: "Disembarkation", time: "~10:00 AM", note: "Usually begins ~2 hours after docking (varies)." }
-                ]
-            }
+            { dayLabel: "Sat", date: "Sat, Feb 28", title: "Galveston, Texas (Embarkation)", type: "Port Day", arrive: "", depart: "4:00 PM", notes: "Board, explore the ship, find snacks, and catch sail away." },
+            { dayLabel: "Sun", date: "Sun, Mar 01", title: "At Sea", type: "Sea Day", arrive: "", depart: "", notes: "A full ship day: sleep in, explore, pool time, shows, snacks, repeat." },
+            { dayLabel: "Mon", date: "Mon, Mar 02", title: "Cozumel, Mexico", type: "Port Day", arrive: "7:30 AM", depart: "4:30 PM", notes: "Beach day energy. Get off early if you want the calmest start." },
+            { dayLabel: "Tue", date: "Tue, Mar 03", title: "Harvest Caye, Belize", type: "Port Day", arrive: "10:00 AM", depart: "5:00 PM", notes: "A later start — perfect for a slow morning before getting off the ship." },
+            { dayLabel: "Wed", date: "Wed, Mar 04", title: "Roatán (Bay Islands), Honduras", type: "Port Day", arrive: "7:00 AM", depart: "5:00 PM", notes: "Early arrival again — great day for a planned excursion or beach time." },
+            { dayLabel: "Thu", date: "Thu, Mar 05", title: "Costa Maya, Mexico", type: "Port Day", arrive: "7:00 AM", depart: "1:00 PM", notes: "Shorter port day — go early and keep an eye on the clock." },
+            { dayLabel: "Fri", date: "Fri, Mar 06", title: "At Sea", type: "Sea Day", arrive: "", depart: "", notes: "Last full sea day — do the ‘we’ll do it later’ stuff today." },
+            { dayLabel: "Sat", date: "Sat, Mar 07", title: "Galveston, Texas (Flight Departure)", type: "Port Day", arrive: "8:00 AM", depart: "", notes: "Docking + disembarkation day. Expect disembarkation to start after docking." }
         ];
 
-        // ====== Rendering ======
-        const dayList = document.getElementById("dayList");
         const portGrid = document.getElementById("portGrid");
-        const tldrBox = document.getElementById("tldrBox");
 
         function safe(v) { return (v ?? "").toString(); }
-
-        function makeTLDR() {
-            const start = itineraryData[0];
-            const end = itineraryData[itineraryData.length - 1];
-            const ports = itineraryData.filter(d => /port/i.test(d.type)).length;
-            const sea = itineraryData.filter(d => /sea/i.test(d.type)).length;
-
-            tldrBox.innerHTML = `
-            <strong>${safe(start.date)} → ${safe(end.date)}</strong><br/>
-            ${ports} port day(s) • ${sea} sea day(s) • Tap a day below for times + notes
-          `;
-        }
 
         function renderPortCards() {
             portGrid.innerHTML = "";
             itineraryData.forEach(d => {
-                const tag = safe(d.type) || "Day";
-                const times =
-                    (safe(d.arrive) || safe(d.depart))
-                        ? `Arr ${safe(d.arrive) || "—"} • Dep ${safe(d.depart) || "—"}`
-                        : "";
+                const times = (safe(d.arrive) || safe(d.depart))
+                    ? `Arr ${safe(d.arrive) || "—"} • Dep ${safe(d.depart) || "—"}`
+                    : "";
 
-                const html = `
+                portGrid.insertAdjacentHTML("beforeend", `
               <div class="portCard">
                 <h3>${safe(d.dayLabel)} — ${safe(d.title)}</h3>
                 <p>${safe(d.date)}</p>
                 ${times ? `<p style="margin-top:8px;">${times}</p>` : ""}
                 <p style="margin-top:8px;">${safe(d.notes)}</p>
-                <span class="tag">${tag}</span>
+                <span class="tag">${safe(d.type) || "Day"}</span>
               </div>
-            `;
-                portGrid.insertAdjacentHTML("beforeend", html);
+            `);
             });
         }
 
-        function renderDays() {
-            dayList.innerHTML = "";
-            itineraryData.forEach((d, i) => {
-                const arrive = safe(d.arrive);
-                const depart = safe(d.depart);
-
-                const bullets = Array.isArray(d.bullets) ? d.bullets : [];
-                const bulletHtml = bullets.map(b => `
-              <div class="row">
-                <div class="row__top">
-                  <div class="row__label">${safe(b.label)}</div>
-                  <div class="row__time">${safe(b.time)}</div>
-                </div>
-                <div class="row__note">${safe(b.note)}</div>
-              </div>
-            `).join("");
-
-                const metaBits = [
-                    safe(d.date) ? `<span class="pill"><span class="dot"></span>${safe(d.date)}</span>` : "",
-                    safe(d.type) ? `<span class="pill"><span class="dot"></span>${safe(d.type)}</span>` : "",
-                    (arrive || depart) ? `<span class="pill"><span class="dot"></span>${arrive ? "Arr " + arrive : ""}${arrive && depart ? " • " : ""}${depart ? "Dep " + depart : ""}</span>` : ""
-                ].filter(Boolean).join("");
-
-                const html = `
-              <details class="day" ${i === 0 ? "open" : ""}>
-                <summary class="day__summary">
-                  <div class="day__left">
-                    <p class="day__title">${safe(d.dayLabel)} — ${safe(d.title)}</p>
-                    <div class="day__meta">${metaBits}</div>
-                  </div>
-                  <div class="chev">⌄</div>
-                </summary>
-
-                <div class="day__body">
-                  ${safe(d.notes) ? `<p class="sub" style="margin:12px 0 0;">${safe(d.notes)}</p>` : ""}
-                  ${bulletHtml ? `<div class="rows">${bulletHtml}</div>` : ""}
-                </div>
-              </details>
-            `;
-                dayList.insertAdjacentHTML("beforeend", html);
-            });
-        }
-
-        makeTLDR();
         renderPortCards();
-        renderDays();
     </script>
 </body>
 </html>

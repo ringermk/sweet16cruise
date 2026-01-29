@@ -4,16 +4,16 @@
         { href: "packing.html", label: "Packing List" },
         { href: "itinerary.html", label: "Itinerary" },
         { href: "stateroom.html", label: "Stateroom" },
+        { href: "https://www.youtube.com/watch?v=fNJnH5-TtR0", label: "Ship Video", externa: true },
+        { href: "https://www.ncl.com/cruise-ships/norwegian-viva/deck-plans#filter=deck-15", label: "Deck Plans", external: true },
         { href: "day-0.html", label: "Day 0 (Travel Day)" },
-        //{ href: "day-1.html", label: "Day 1" },
+        { href: "day-1.html", label: "Day 1" }
         //{ href: "day-2.html", label: "Day 2" },
         //{ href: "day-3.html", label: "Day 3" },
         //{ href: "day-4.html", label: "Day 4" },
         //{ href: "day-5.html", label: "Day 5" },
         //{ href: "day-6.html", label: "Day 6" },
         //{ href: "day-7.html", label: "Day 7" },
-        { href: "https://www.youtube.com/watch?v=fNJnH5-TtR0", label: "Ship Video", externa: true },
-        { href: "https://www.ncl.com/cruise-ships/norwegian-viva/deck-plans#filter=deck-15", label: "Deck Plans", external: true }
     ];
 
     // ---------- Shared Header / Hamburger ----------
