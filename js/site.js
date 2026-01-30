@@ -53,7 +53,6 @@
 
         <div class="menu" id="menuPanel" hidden>
           <div class="menu__inner">
-            <div class="menu__title">Navigate</div>
             <div class="menu__groups">
               ${groupsHtml}
             </div>
