@@ -65,39 +65,31 @@
             <div class="hunt__top">
                 <div>
                     <h2 class="pack__h2">Sea Day Scavenger Hunt</h2>
-                    <p class="pack__note">Pick teams, start the timer, and start collecting proof.</p>
+                    <p class="pack__note">Start a timer, then tap items as you complete them.</p>
                 </div>
 
                 <div class="hunt__controls">
                     <label class="hunt__label">
-                        Team A
-                        <input id="teamA" class="hunt__input" value="Jaekin + Kaitlin" />
-                    </label>
-
-                    <label class="hunt__label">
-                        Team B
-                        <input id="teamB" class="hunt__input" value="Marianne + Joey" />
-                    </label>
-
-                    <label class="hunt__label">
-                        This device is
-                        <select id="deviceTeam" class="hunt__input">
-                            <option value="A">Team A</option>
-                            <option value="B">Team B</option>
+                        Timer length (minutes)
+                        <select id="minutes" class="hunt__input">
+                            <option value="30">30</option>
+                            <option value="45" selected>45</option>
+                            <option value="60">60</option>
+                            <option value="90">90</option>
                         </select>
                     </label>
 
                     <div class="hunt__btnRow">
-                        <button class="btn btn--primary" id="startTimer" type="button">Start 45 min timer</button>
+                        <button class="btn btn--primary" id="startTimer" type="button">Start timer</button>
                         <button class="btn btn--ghost" id="resetHunt" type="button">Reset</button>
                     </div>
                 </div>
             </div>
 
-            <div class="hunt__scoreRow">
+            <div class="hunt__scoreRow hunt__scoreRow--solo">
                 <div class="scoreCard">
-                    <div class="scoreCard__label" id="labelA">Team A</div>
-                    <div class="scoreCard__value" id="scoreA">0</div>
+                    <div class="scoreCard__label">Score</div>
+                    <div class="scoreCard__value" id="score">0</div>
                     <div class="scoreCard__sub">points</div>
                 </div>
 
@@ -106,17 +98,10 @@
                     <div class="timerCard__value" id="timer">45:00</div>
                     <div class="timerCard__sub">meet-up when it hits zero</div>
                 </div>
-
-                <div class="scoreCard">
-                    <div class="scoreCard__label" id="labelB">Team B</div>
-                    <div class="scoreCard__value" id="scoreB">0</div>
-                    <div class="scoreCard__sub">points</div>
-                </div>
             </div>
 
             <div class="spacer"></div>
 
-            <!-- TASKS -->
             <div class="huntGrid" id="huntGrid" aria-label="Scavenger hunt tasks"></div>
 
             <div class="spacer"></div>
@@ -129,6 +114,7 @@
                 </p>
             </details>
         </section>
+
 
         <!-- THINGS TO DO -->
         <section class="card pack__card">
@@ -157,140 +143,106 @@
         // ==========================
         // Sea Day Hunt (localStorage)
         // ==========================
-        const STORE_KEY = "day2_hunt_v1";
+        const STORE_KEY = "day2_hunt_solo_v1";
 
         const defaultTasks = [
-            // Easy / ship discovery
-            { id: "t1", title: "Ocean glam shot", note: "Photo proof. Make it dramatic.", pts: 5, proof: "photo" },
-            { id: "t2", title: "Find the quietest nook", note: "Photo proof. Bonus if it has a view.", pts: 4, proof: "photo" },
-            { id: "t3", title: "Waterslide / pool moment", note: "Photo proof near the pool area.", pts: 4, proof: "photo" },
-            { id: "t4", title: "Something with NCL branding", note: "Sign, logo, anything.", pts: 2, proof: "photo" },
+            { id: "t1", title: "Ocean glam shot", note: "Photo proof. Make it dramatic.", pts: 5 },
+            { id: "t2", title: "Find the quietest nook", note: "Photo proof. Bonus if it has a view.", pts: 4 },
+            { id: "t3", title: "Waterslide / pool moment", note: "Photo proof near the pool area.", pts: 4 },
+            { id: "t4", title: "Something with NCL branding", note: "Sign, logo, anything.", pts: 2 },
 
-            // Food & fun
-            { id: "t5", title: "A dessert you didn’t plan on", note: "Photo proof. Sugar is a strategy.", pts: 3, proof: "photo" },
-            { id: "t6", title: "Try a new drink (any kind)", note: "Photo proof. Mocktail counts.", pts: 3, proof: "photo" },
-            { id: "t7", title: "A weird/funny menu item name", note: "Photo proof of the menu sign.", pts: 3, proof: "photo" },
+            { id: "t5", title: "A dessert you didn’t plan on", note: "Photo proof. Sugar is a strategy.", pts: 3 },
+            { id: "t6", title: "Try a new drink (any kind)", note: "Photo proof. Mocktail counts.", pts: 3 },
+            { id: "t7", title: "A weird/funny menu item name", note: "Photo proof of the menu sign.", pts: 3 },
 
-            // People & ship life (keep it respectful)
-            { id: "t8", title: "Best outfit sighting", note: "Describe it (no photos of strangers).", pts: 4, proof: "note" },
-            { id: "t9", title: "Ask a crew member a question", note: "Be kind. Write their answer.", pts: 4, proof: "note" },
+            { id: "t8", title: "Best outfit sighting", note: "Describe it (no photos of strangers).", pts: 4 },
+            { id: "t9", title: "Ask a crew member a question", note: "Be kind. Write their answer.", pts: 4 },
 
-            // Bonus / harder
-            { id: "t10", title: "Find a schedule item you want tomorrow", note: "Screenshot or write it down.", pts: 5, proof: "note" },
-            { id: "t11", title: "Find the ship’s best selfie mirror", note: "Photo proof. Lighting matters.", pts: 4, proof: "photo" },
-            { id: "t12", title: "A hidden art piece / cool hallway", note: "Photo proof.", pts: 4, proof: "photo" }
+            { id: "t10", title: "Find a schedule item you want tomorrow", note: "Screenshot or write it down.", pts: 5 },
+            { id: "t11", title: "Find the ship’s best selfie mirror", note: "Photo proof. Lighting matters.", pts: 4 },
+            { id: "t12", title: "A hidden art piece / cool hallway", note: "Photo proof.", pts: 4 }
         ];
 
         function loadState() {
-            try {
-                return JSON.parse(localStorage.getItem(STORE_KEY)) || null;
-            } catch {
-                return null;
-            }
+            try { return JSON.parse(localStorage.getItem(STORE_KEY)) || null; }
+            catch { return null; }
         }
 
-        function saveState(state) {
-            localStorage.setItem(STORE_KEY, JSON.stringify(state));
+        function saveState(s) {
+            localStorage.setItem(STORE_KEY, JSON.stringify(s));
         }
 
         function buildInitialState() {
             return {
-                teamA: "Jaekin + Kaitlin",
-                teamB: "Marianne + Joey",
-                deviceTeam: "A",
-                // each task can be claimed by A or B (or null)
-                claims: defaultTasks.reduce((acc, t) => (acc[t.id] = null, acc), {}),
-                // timer
-                timerEnd: null, // timestamp ms
-                durationSec: 45 * 60
+                done: defaultTasks.reduce((acc, t) => (acc[t.id] = false, acc), {}),
+                minutes: 45,
+                durationSec: 45 * 60,
+                timerEnd: null
             };
         }
 
         const grid = document.getElementById("huntGrid");
-        const teamAInput = document.getElementById("teamA");
-        const teamBInput = document.getElementById("teamB");
-        const labelA = document.getElementById("labelA");
-        const labelB = document.getElementById("labelB");
-        const scoreAEl = document.getElementById("scoreA");
-        const scoreBEl = document.getElementById("scoreB");
+        const minutesSel = document.getElementById("minutes");
+        const scoreEl = document.getElementById("score");
         const timerEl = document.getElementById("timer");
         const startBtn = document.getElementById("startTimer");
         const resetBtn = document.getElementById("resetHunt");
-        const deviceTeamSelect = document.getElementById("deviceTeam");
 
         let state = loadState() || buildInitialState();
 
-        function computeScores() {
-            let a = 0, b = 0;
+        function computeScore() {
+            let total = 0;
             for (const t of defaultTasks) {
-                const c = state.claims[t.id];
-                if (c === "A") a += t.pts;
-                if (c === "B") b += t.pts;
+                if (state.done[t.id]) total += t.pts;
             }
-            return { a, b };
+            return total;
         }
 
         function render() {
-            // team labels
-            labelA.textContent = state.teamA || "Team A";
-            labelB.textContent = state.teamB || "Team B";
-            teamAInput.value = state.teamA || "";
-            teamBInput.value = state.teamB || "";
-            deviceTeamSelect.value = state.deviceTeam || "A";
+            // minutes UI
+            minutesSel.value = String(state.minutes ?? 45);
 
-            // scores
-            const { a, b } = computeScores();
-            scoreAEl.textContent = a;
-            scoreBEl.textContent = b;
+            // score
+            scoreEl.textContent = computeScore();
 
             // tasks
-            if (grid) {
-                const deviceTeam = state.deviceTeam || "A";
+            grid.innerHTML = defaultTasks.map(t => {
+                const isDone = !!state.done[t.id];
+                const cls = isDone ? "is-claimed" : "";
+                const btnText = isDone ? "Claimed ✓" : "Claim";
 
-                grid.innerHTML = defaultTasks.map(t => {
-                    const claimed = state.claims[t.id]; // "A" | "B" | null
-                    const claimedClass = claimed ? `is-claimed is-${claimed}` : "";
-                    const isMine = claimed === deviceTeam;
+                return `
+            <article class="huntItem ${cls}" data-id="${t.id}">
+              <div class="huntItem__top">
+                <h3 class="huntItem__title">${t.title}</h3>
+                <div class="huntItem__pts">${t.pts} pts</div>
+              </div>
 
-                    const btnText = isMine ? "Claimed ✓" : "Claim";
+              <p class="huntItem__note">${t.note}</p>
 
-                    return `
-                      <article class="huntItem ${claimedClass}" data-id="${t.id}">
-                        <div class="huntItem__top">
-                          <h3 class="huntItem__title">${t.title}</h3>
-                          <div class="huntItem__pts">${t.pts} pts</div>
-                        </div>
+              <div class="huntItem__actions huntItem__actions--single">
+                <button class="btn btn--ghost huntToggle" type="button">${btnText}</button>
+              </div>
+            </article>
+          `;
+            }).join("");
 
-                        <p class="huntItem__note">${t.note}</p>
+            // wire toggles
+            grid.querySelectorAll(".huntItem").forEach(card => {
+                const id = card.getAttribute("data-id");
+                const btn = card.querySelector(".huntToggle");
 
-                        <div class="huntItem__actions huntItem__actions--single">
-                          <button class="btn btn--ghost huntToggle" type="button">${btnText}</button>
-                        </div>
-                      </article>
-                    `;
-                }).join("");
-
-                // wire events (single toggle)
-                grid.querySelectorAll(".huntItem").forEach(card => {
-                    const id = card.getAttribute("data-id");
-                    const btn = card.querySelector(".huntToggle");
-
-                    btn.addEventListener("click", () => {
-                        const deviceTeam = state.deviceTeam || "A";
-                        const current = state.claims[id];
-
-                        // toggle: if already claimed by this team => unclaim, else claim for this team
-                        state.claims[id] = (current === deviceTeam) ? null : deviceTeam;
-
-                        saveState(state);
-                        render();
-                    });
+                btn.addEventListener("click", () => {
+                    state.done[id] = !state.done[id];
+                    saveState(state);
+                    render();
                 });
-            }
-
+            });
         }
 
+        // ==========================
         // Timer
+        // ==========================
         let timerTick = null;
 
         function fmt(sec) {
@@ -307,10 +259,10 @@
             const now = Date.now();
             const left = Math.max(0, Math.floor((state.timerEnd - now) / 1000));
             timerEl.textContent = fmt(left);
+
             if (left <= 0) {
                 clearInterval(timerTick);
                 timerTick = null;
-                // fun little nudge
                 timerEl.textContent = "00:00";
             }
         }
@@ -318,38 +270,31 @@
         function startTimer() {
             state.timerEnd = Date.now() + (state.durationSec * 1000);
             saveState(state);
+
             if (timerTick) clearInterval(timerTick);
             timerTick = setInterval(updateTimer, 500);
             updateTimer();
         }
 
-        // inputs
-        teamAInput.addEventListener("change", () => {
-            state.teamA = teamAInput.value.trim() || "Team A";
+        minutesSel.addEventListener("change", () => {
+            const mins = parseInt(minutesSel.value, 10) || 45;
+            state.minutes = mins;
+            state.durationSec = mins * 60;
+            state.timerEnd = null; // reset running timer when changing length
             saveState(state);
+            updateTimer();
             render();
         });
-
-        teamBInput.addEventListener("change", () => {
-            state.teamB = teamBInput.value.trim() || "Team B";
-            saveState(state);
-            render();
-        });
-
-        deviceTeamSelect.addEventListener("change", () => {
-            state.deviceTeam = deviceTeamSelect.value; // "A" or "B"
-            saveState(state);
-            render();
-        });
-
 
         startBtn.addEventListener("click", startTimer);
 
         resetBtn.addEventListener("click", () => {
             state = buildInitialState();
             saveState(state);
+
             if (timerTick) clearInterval(timerTick);
             timerTick = null;
+
             render();
             updateTimer();
         });
@@ -357,9 +302,8 @@
         // init
         render();
         updateTimer();
-        if (state.timerEnd) {
-            timerTick = setInterval(updateTimer, 500);
-        }
+        if (state.timerEnd) timerTick = setInterval(updateTimer, 500);
     </script>
+
 </body>
 </html>

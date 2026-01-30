@@ -1772,3 +1772,25 @@ body {
     background: rgba(0,209,199,.10);
     border-color: rgba(0,209,199,.28);
 }
+
+/* Day 2: solo score row (2 cards instead of 3) */
+.hunt__scoreRow--solo {
+    grid-template-columns: 1fr 1.1fr;
+}
+
+@media (max-width: 900px) {
+    .hunt__scoreRow--solo {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Make claimed items look “done” (single-team version) */
+.huntItem.is-claimed {
+    border-color: rgba(0,209,199,.35);
+    box-shadow: 0 16px 40px rgba(0,209,199,.08);
+}
+
+    .huntItem.is-claimed .huntToggle {
+        background: rgba(0,209,199,.10);
+        border-color: rgba(0,209,199,.28);
+    }
