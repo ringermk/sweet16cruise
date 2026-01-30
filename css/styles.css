@@ -1750,16 +1750,6 @@ body {
     pointer-events: none;
 }
 
-.huntItem.is-A {
-    border-color: rgba(0,209,199,.35);
-    box-shadow: 0 16px 40px rgba(0,209,199,.08);
-}
-
-.huntItem.is-B {
-    border-color: rgba(42,168,255,.35);
-    box-shadow: 0 16px 40px rgba(42,168,255,.10);
-}
-
 .huntItem__actions--single {
     justify-content: flex-end;
 }
