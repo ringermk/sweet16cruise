@@ -13,193 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
 
-    <style>
-        /* Page-only extras that match your vibe */
-        .grid2 {
-            display: grid;
-            grid-template-columns: 1.2fr .8fr;
-            gap: 16px;
-        }
+        <!-- Page-specific styles live in css/styles.css -->
 
-        @media (max-width: 900px) {
-            .grid2 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .kicker {
-            margin: 0 0 6px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .14em;
-            font-size: .85rem;
-        }
-
-        .bingo {
-            display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        @media (max-width: 700px) {
-            .bingo {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .tile {
-            user-select: none;
-            padding: 14px 10px;
-            border-radius: 16px;
-            background: rgba(255,255,255,.045);
-            border: 1px solid rgba(255,255,255,.10);
-            text-align: center;
-            line-height: 1.15;
-            cursor: pointer;
-            transition: transform .12s ease, background .12s ease, border-color .12s ease;
-            min-height: 78px;
-            display: grid;
-            align-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-            .tile:hover {
-                transform: translateY(-1px);
-                background: rgba(42,168,255,.08);
-                border-color: rgba(42,168,255,.28);
-            }
-
-            .tile.is-on {
-                background: rgba(0,209,199,.10);
-                border-color: rgba(0,209,199,.35);
-                box-shadow: 0 10px 26px rgba(0,0,0,.28);
-            }
-
-                .tile.is-on::after {
-                    content: "✓";
-                    position: absolute;
-                    top: 8px;
-                    right: 10px;
-                    font-weight: 900;
-                    color: var(--accent2);
-                    opacity: .95;
-                }
-
-        .miniList {
-            margin: 10px 0 0;
-            padding-left: 18px;
-            color: var(--muted);
-            line-height: 1.55;
-        }
-
-        .muted {
-            color: var(--muted);
-        }
-
-        .spacer {
-            height: 12px;
-        }
-
-        .address {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-            font-size: .92rem;
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(255,255,255,.10);
-            padding: 10px 12px;
-            border-radius: 14px;
-            display: inline-block;
-        }
-
-        .pillRow {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .pill {
-            padding: 10px 12px;
-            border-radius: 999px;
-            background: rgba(255,255,255,.05);
-            border: 1px solid rgba(255,255,255,.10);
-            color: rgba(245,247,255,.92);
-            font-weight: 700;
-            letter-spacing: .02em;
-            font-size: .9rem;
-        }
-        /* Hotel hero card */
-        .hotelHero {
-            position: relative;
-            padding: 0; /* we'll manage padding inside */
-            overflow: hidden;
-            border-radius: 18px;
-        }
-
-            /* Background image layer */
-            .hotelHero::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background-image: url("assets/img/studio6-galveston.jpg");
-                background-size: cover;
-                background-position: center;
-                filter: saturate(1.05) contrast(1.05);
-                transform: scale(1.03);
-                z-index: 0;
-            }
-
-            /* Dark overlay for readable text */
-            .hotelHero::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.35) 35%, rgba(0,0,0,.70)), radial-gradient(circle at 20% 15%, rgba(0,209,199,.14), rgba(0,0,0,0) 40%), radial-gradient(circle at 75% 55%, rgba(42,168,255,.14), rgba(0,0,0,0) 45%);
-                z-index: 1;
-            }
-
-            /* Keep content above overlays */
-            .hotelHero > * {
-                position: relative;
-                z-index: 2;
-            }
-
-        /* Inner layout + spacing */
-        .hotelHero__inner {
-            padding: 16px;
-        }
-
-        /* Title row */
-        .hotelHero__title {
-            margin: 0 0 10px;
-            font-size: 1.25rem;
-            letter-spacing: .02em;
-        }
-
-        /* A glass panel for the details */
-        .hotelHero__panel {
-            max-width: 720px;
-            background: rgba(10,12,16,.62);
-            border: 1px solid rgba(255,255,255,.14);
-            border-radius: 18px;
-            padding: 14px 14px;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Optional: make the list a little tighter */
-        .hotelHero .miniList {
-            margin: 10px 0 0;
-        }
-
-        .hotelHero__inner {
-            padding: 22px;
-            min-height: 360px;
-            display: grid;
-            align-content: end;
-        }
-
-    </style>
 </head>
 
 <body>
@@ -226,7 +41,7 @@
 
                 <div class="embed tall" aria-label="Route map">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m34!1m12!1m3!1d6766846.6825881135!2d-101.41469232221505!3d34.091954585037925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m19!3e0!4m5!1s0x87c092da8c8d7cdb%3A0xe612f6597048fc05!2s5709%20Hauser%20St%2C%20Shawnee%2C%20KS%2066216!3m2!1d39.024916499999996!2d-94.7392639!4m5!1s0x87bade7ffd0bf077%3A0x1c3a59fb8d2e2a65!2s12018%20W%20Jewell%20Ct%2C%20Wichita%2C%20KS%2067235!3m2!1d37.6570187!2d-97.4813332!4m5!1s0x863f9d0120dbd0ff%3A0x8def77c8761c5bb9!2s7404%20Avenue%20J%2C%20Galveston%2C%20TX%2077554!3m2!1d29.2882166!2d-94.8548589!5e0!3m2!1sen!2sus!4v1769642075846!5m2!1sen!2sus"
-                            width="600" height="450" style="border:0;"
+                            width="600" height="450" class="mapFrame"
                             allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
@@ -312,7 +127,6 @@
 
             <div class="actions">
                 <button class="btn btn--ghost" id="bingoReset" type="button">Reset Bingo</button>
-                <a class="btn btn--primary" href="day-1.html">Next: Embarkation Day →</a>
             </div>
         </section>
 
@@ -337,7 +151,7 @@
             </div>
         </section>
 
-        <section class="card pack__card hotelHero">
+        <section class="pack__card hotelHero">
             <div class="hotelHero__inner">
                 <h2 class="pack__h2 hotelHero__title">Tonight’s Hotel</h2>
 
@@ -354,7 +168,7 @@
                         <li><strong>Phone:</strong> 409-740-3794</li>
                     </ul>
 
-                    <div class="actions" style="margin-top:12px;">
+                    <div class="actions">
                         <a class="btn btn--primary" target="_blank" rel="noopener"
                            href="https://www.google.com/maps/search/?api=1&query=Studio+6+Galveston,+7404+Avenue+J,+Galveston,+TX+77554">
                             Open in Maps →

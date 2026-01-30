@@ -1,20 +1,46 @@
 (() => {
-    const links = [
-        { href: "index.html", label: "Home" },
-        { href: "packing.html", label: "Packing List" },
-        { href: "itinerary.html", label: "Itinerary" },
-        { href: "stateroom.html", label: "Stateroom" },
-        { href: "https://www.youtube.com/watch?v=fNJnH5-TtR0", label: "Ship Video", externa: true },
-        { href: "https://www.ncl.com/cruise-ships/norwegian-viva/deck-plans#filter=deck-15", label: "Deck Plans", external: true },
-        { href: "day-0.html", label: "Day 0 (Travel Day)" },
-        { href: "day-1.html", label: "Day 1" }
-        //{ href: "day-2.html", label: "Day 2" },
-        //{ href: "day-3.html", label: "Day 3" },
-        //{ href: "day-4.html", label: "Day 4" },
-        //{ href: "day-5.html", label: "Day 5" },
-        //{ href: "day-6.html", label: "Day 6" },
-        //{ href: "day-7.html", label: "Day 7" },
-    ];
+    const menu = {
+        Start: [
+            { href: "index.html", label: "Home" }
+        ],
+        Prep: [
+            { href: "packing.html", label: "Packing List" },
+            { href: "itinerary.html", label: "Itinerary" }
+        ],
+        Ship: [
+            { href: "stateroom.html", label: "Stateroom" },
+            { href: "https://www.youtube.com/watch?v=fNJnH5-TtR0", label: "Ship Video", external: true },
+            { href: "https://www.ncl.com/cruise-ships/norwegian-viva/deck-plans#filter=deck-15", label: "Deck Plans", external: true }
+        ],
+        Trip: [
+            { href: "day-0.html", label: "Day 0 (Travel Day)" },
+            { href: "day-1.html", label: "Day 1 (Sail Away)" } 
+        ]
+    };
+
+    const linkHtml = (l) => {
+        const attrs = l.external ? ` target="_blank" rel="noopener noreferrer"` : "";
+        return `<a class="menuLink" href="${l.href}"${attrs}>${l.label}</a>`;
+    };
+
+    const groupsHtml = Object.entries(menu).map(([groupName, items]) => {
+        // keep "Start" open and simple, other groups collapsible
+        if (groupName === "Start") {
+            return `<div class="menu__groups">
+      ${items.map(linkHtml).join("")}
+    </div>`;
+        }
+
+        return `
+    <details class="menuGroup">
+      <summary class="menuGroup__title">${groupName}</summary>
+      <div class="menuGroup__links">
+        ${items.map(linkHtml).join("")}
+      </div>
+    </details>
+  `;
+    }).join("");
+
 
     // ---------- Shared Header / Hamburger ----------
     const headerHost = document.getElementById("site-header");
@@ -28,12 +54,9 @@
         <div class="menu" id="menuPanel" hidden>
           <div class="menu__inner">
             <div class="menu__title">Navigate</div>
-            <nav class="menu__links">
-              ${links.map(l => {
-                  const attrs = l.external ? ` target="_blank" rel="noopener noreferrer"` : "";
-                  return `<a href="${l.href}"${attrs}>${l.label}</a>`;
-              }).join("")}
-            </nav>
+            <div class="menu__groups">
+              ${groupsHtml}
+            </div>
           </div>
         </div>
 

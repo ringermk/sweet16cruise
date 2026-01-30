@@ -12,77 +12,37 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
 
-    <style>
-        /* Port overview cards */
-        .portGrid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        @media (max-width: 900px) {
-            .portGrid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .portCard {
-            border-radius: 18px;
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(255,255,255,.12);
-            padding: 14px;
-            backdrop-filter: blur(10px);
-        }
-
-            .portCard h3 {
-                margin: 0 0 6px;
-                font-size: 1rem;
-                font-weight: 900;
-                color: rgba(245,247,255,.95);
-            }
-
-            .portCard p {
-                margin: 0;
-                color: var(--muted);
-                line-height: 1.45;
-                font-size: .95rem;
-            }
-
-            .portCard .tag {
-                margin-top: 10px;
-                display: inline-flex;
-                padding: 8px 10px;
-                border-radius: 999px;
-                background: rgba(42,168,255,.10);
-                border: 1px solid rgba(42,168,255,.22);
-                color: rgba(245,247,255,.90);
-                font-weight: 800;
-                font-size: .85rem;
-            }
-
-        .notice {
-            margin-top: 14px;
-            padding: 12px 12px;
-            border-radius: 16px;
-            background: rgba(255,255,255,.05);
-            border: 1px solid rgba(255,255,255,.12);
-            color: rgba(245,247,255,.90);
-            line-height: 1.5;
-        }
-    </style>
+    <!-- Page-specific styles live in css/styles.css -->
 </head>
 
 <body>
     <div id="site-header"></div>
 
     <main class="page pack">
-        <h1 class="page__title">Where We’re Going</h1>
+        <header class="itHero">
+            <img class="itHero__img" src="assets/img/ncl-viva3.jpg" alt="Norwegian Viva at sea" />
+            <div class="itHero__overlay"></div>
+
+            <div class="itHero__content">
+                <p class="itHero__eyebrow">Sat, Feb 28 → Sat, Mar 07</p>
+                <h1 class="itHero__title">Where We’re Going</h1>
+                <p class="itHero__lede">Ports, sea days, and the “don’t miss” vibe for each stop.</p>
+
+                <div class="itHero__stats">
+                    <span class="chip">6 port day(s)</span>
+                    <span class="chip">2 sea day(s)</span>
+                    <span class="chip chip--ghost">Times are ship time</span>
+                </div>
+            </div>
+        </header>
+
+
 
         <div class="notice">
             <strong>Sat, Feb 28 → Sat, Mar 07</strong><br />
             6 port day(s) • 2 sea day(s)<br /><br />
 
-            <strong>Heads up:</strong> Guests must be on board <strong>2 hours before sailing</strong>.
+            <strong>Heads up:</strong> Guests must be on board <strong>2 hours before sailing (2pm)</strong>.
             Disembarkation usually begins <strong>2 hours after docking</strong>.
             Itineraries can change at any time without notice.
         </div>
@@ -118,15 +78,31 @@
                     ? `Arr ${safe(d.arrive) || "—"} • Dep ${safe(d.depart) || "—"}`
                     : "";
 
+                const isSea = safe(d.type).toLowerCase().includes("sea");
+
                 portGrid.insertAdjacentHTML("beforeend", `
-              <div class="portCard">
-                <h3>${safe(d.dayLabel)} — ${safe(d.title)}</h3>
-                <p>${safe(d.date)}</p>
-                ${times ? `<p style="margin-top:8px;">${times}</p>` : ""}
-                <p style="margin-top:8px;">${safe(d.notes)}</p>
-                <span class="tag">${safe(d.type) || "Day"}</span>
-              </div>
-            `);
+                  <article class="stopCard ${isSea ? "stopCard--sea" : "stopCard--port"}">
+                    <div class="stopCard__badge" aria-hidden="true">
+                      <div class="stopCard__dow">${safe(d.dayLabel)}</div>
+                      <div class="stopCard__date">${safe(d.date).replace(safe(d.dayLabel) + ", ", "")}</div>
+                    </div>
+
+                    <div class="stopCard__body">
+                      <div class="stopCard__top">
+                        <h3 class="stopCard__title">${safe(d.title)}</h3>
+                        <span class="tag">${safe(d.type) || "Day"}</span>
+                      </div>
+
+                      ${times
+                                        ? `<div class="stopCard__meta">${times}</div>`
+                                        : `<div class="stopCard__meta stopCard__meta--empty">Sea day bliss ✨</div>`
+                                    }
+
+                      <p class="stopCard__notes">${safe(d.notes)}</p>
+                    </div>
+                  </article>
+                `);
+
             });
         }
 
