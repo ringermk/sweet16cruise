@@ -1553,3 +1553,222 @@ body {
     flex-wrap: wrap;
     gap: 10px;
 }
+
+/* ===============================
+   Day 2 — Sea Day Hunt
+   =============================== */
+
+.hunt__top {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 14px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .hunt__top {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hunt__controls {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 18px;
+    padding: 14px;
+}
+
+.hunt__label {
+    display: grid;
+    gap: 6px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    margin-bottom: 10px;
+    color: rgba(245,247,255,.92);
+}
+
+.hunt__input {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(10,12,16,.55);
+    color: var(--text);
+    padding: 10px 12px;
+    outline: none;
+}
+
+    .hunt__input:focus {
+        border-color: rgba(42,168,255,.50);
+        box-shadow: 0 0 0 3px rgba(42,168,255,.18);
+    }
+
+.hunt__btnRow {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.hunt__scoreRow {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+    .hunt__scoreRow {
+        grid-template-columns: 1fr;
+    }
+}
+
+.scoreCard,
+.timerCard {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    padding: 14px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.scoreCard__label,
+.timerCard__label {
+    font-size: .78rem;
+    opacity: .8;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(245,247,255,.85);
+    font-weight: 800;
+}
+
+.scoreCard__value,
+.timerCard__value {
+    margin-top: 8px;
+    font-weight: 900;
+    letter-spacing: .02em;
+    font-size: 2rem;
+    color: var(--accent);
+}
+
+.timerCard__value {
+    color: var(--accent2);
+}
+
+.scoreCard__sub,
+.timerCard__sub {
+    margin-top: 4px;
+    font-size: .9rem;
+    opacity: .75;
+    color: var(--muted);
+}
+
+.huntGrid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 12px;
+}
+
+.huntItem {
+    grid-column: span 6;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    padding: 14px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 14px 34px rgba(0,0,0,.26);
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    .huntItem {
+        grid-column: span 12;
+    }
+}
+
+.huntItem__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: start;
+}
+
+.huntItem__title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: rgba(245,247,255,.95);
+}
+
+.huntItem__pts {
+    font-weight: 900;
+    color: var(--accent);
+    background: rgba(42,168,255,.10);
+    border: 1px solid rgba(42,168,255,.22);
+    padding: 8px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.huntItem__note {
+    margin: 10px 0 0;
+    color: rgba(245,247,255,.88);
+    opacity: .92;
+    line-height: 1.5;
+}
+
+.huntItem__meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.huntPill {
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    color: rgba(245,247,255,.90);
+    font-weight: 800;
+    font-size: .85rem;
+}
+
+.huntItem__actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.huntItem.is-claimed::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.12));
+    pointer-events: none;
+}
+
+.huntItem.is-A {
+    border-color: rgba(0,209,199,.35);
+    box-shadow: 0 16px 40px rgba(0,209,199,.08);
+}
+
+.huntItem.is-B {
+    border-color: rgba(42,168,255,.35);
+    box-shadow: 0 16px 40px rgba(42,168,255,.10);
+}
+
+.huntItem__actions--single {
+    justify-content: flex-end;
+}
+
+.huntToggle {
+    min-width: 120px;
+}
+
+.huntItem.is-claimed .huntToggle {
+    background: rgba(0,209,199,.10);
+    border-color: rgba(0,209,199,.28);
+}

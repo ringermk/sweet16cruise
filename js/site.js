@@ -14,7 +14,8 @@
         ],
         Trip: [
             { href: "day-0.html", label: "Day 0 (Travel Day)" },
-            { href: "day-1.html", label: "Day 1 (Sail Away)" } 
+            { href: "day-1.html", label: "Day 1 (Sail Away)" },
+            { href: "day-2.html", label: "Day 2 (Sea Day)" }
         ]
     };
 

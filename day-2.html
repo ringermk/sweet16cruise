@@ -1,11 +1,365 @@
 ﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 2 — Sea Day</title>
 
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="site-header"></div>
+
+    <main class="page pack">
+
+        <!-- HERO -->
+        <section class="dayHero" aria-label="Sea day hero">
+            <div class="dayHero__bg" style="background-image:url('assets/img/sea-day1.jpg');"></div>
+            <div class="dayHero__overlay"></div>
+            <div class="dayHero__content">
+                <h1 class="dayHero__title">Day 2 - First full day at sea </h1>
+                <p class="dayHero__lede">
+                    No ports. No schedules we *have* to keep. Just ocean views, ship vibes, and one extremely important mission:
+                    <strong>The Sea Day Scavenger Hunt</strong>.
+                </p>
+
+                <div class="chipRow">
+                    <span class="chip"><strong>Mode:</strong> explore + chill</span>
+                    <span class="chip"><strong>Optional:</strong> pool time</span>
+                    <span class="chip"><strong>Mandatory:</strong> snacks</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALLOUTS -->
+        <section class="calloutRow">
+            <div class="callout">
+                <h2 class="callout__title">The Great Viva Scavenger Hunt</h2>
+                <p class="callout__text">
+                    Jaekin + Kaitlin vs Marianne + Joey. We run around the ship collecting “proof.”
+                </p>
+                <div class="spacer"></div>
+                <p class="callout__text">
+                    Every item has points. Some are “photo proof” (just take a pic). Some are “ask-a-crew-member” (be nice!).
+                </p>
+            </div>
+
+            <div class="callout">
+                <h2 class="callout__title">How to win</h2>
+                <p class="callout__text">
+                    There's a 45 minute time limit. When time’s up, everyone meets at a chosen spot and totals scores.
+                </p>
+                <div class="spacer"></div>
+                <p class="callout__text">
+                    Tie-breaker: the team with the best “ocean glamour shot” wins. No further questions.
+                </p>
+            </div>
+        </section>
+
+        <!-- HUNT CONTROLS -->
+        <section class="card pack__card hunt">
+            <div class="hunt__top">
+                <div>
+                    <h2 class="pack__h2">Sea Day Scavenger Hunt</h2>
+                    <p class="pack__note">Pick teams, start the timer, and start collecting proof.</p>
+                </div>
+
+                <div class="hunt__controls">
+                    <label class="hunt__label">
+                        Team A
+                        <input id="teamA" class="hunt__input" value="Jaekin + Kaitlin" />
+                    </label>
+
+                    <label class="hunt__label">
+                        Team B
+                        <input id="teamB" class="hunt__input" value="Marianne + Joey" />
+                    </label>
+
+                    <label class="hunt__label">
+                        This device is
+                        <select id="deviceTeam" class="hunt__input">
+                            <option value="A">Team A</option>
+                            <option value="B">Team B</option>
+                        </select>
+                    </label>
+
+                    <div class="hunt__btnRow">
+                        <button class="btn btn--primary" id="startTimer" type="button">Start 45 min timer</button>
+                        <button class="btn btn--ghost" id="resetHunt" type="button">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hunt__scoreRow">
+                <div class="scoreCard">
+                    <div class="scoreCard__label" id="labelA">Team A</div>
+                    <div class="scoreCard__value" id="scoreA">0</div>
+                    <div class="scoreCard__sub">points</div>
+                </div>
+
+                <div class="timerCard">
+                    <div class="timerCard__label">Timer</div>
+                    <div class="timerCard__value" id="timer">45:00</div>
+                    <div class="timerCard__sub">meet-up when it hits zero</div>
+                </div>
+
+                <div class="scoreCard">
+                    <div class="scoreCard__label" id="labelB">Team B</div>
+                    <div class="scoreCard__value" id="scoreB">0</div>
+                    <div class="scoreCard__sub">points</div>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <!-- TASKS -->
+            <div class="huntGrid" id="huntGrid" aria-label="Scavenger hunt tasks"></div>
+
+            <div class="spacer"></div>
+
+            <details class="details">
+                <summary>Meet-up spot idea (tap)</summary>
+                <p>
+                    Pick a “home base” like: Atrium / Starbucks / a specific bar / the observation lounge.
+                    Everyone returns there when time’s up.
+                </p>
+            </details>
+        </section>
+
+        <!-- THINGS TO DO -->
+        <section class="card pack__card">
+            <h2 class="pack__h2">Other Sea Day ideas (if you’re not hunting)</h2>
+            <div class="pack__rules">
+                <div class="rule">
+                    <div class="rule__title">Find your favorite chill zone</div>
+                    <div class="rule__body">Quiet chair, ocean view, and a book or playlist. Claim it. Defend it.</div>
+                </div>
+                <div class="rule">
+                    <div class="rule__title">Pool or waterslide mission</div>
+                    <div class="rule__body">Even 20 minutes counts. Bonus points if you don’t lose your flip-flops.</div>
+                </div>
+                <div class="rule">
+                    <div class="rule__title">Try one new thing</div>
+                    <div class="rule__body">A class, game show, trivia, a new restaurant, or a mocktail you didn’t pick yourself.</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/site.js" defer></script>
+
+    <script>
+        // ==========================
+        // Sea Day Hunt (localStorage)
+        // ==========================
+        const STORE_KEY = "day2_hunt_v1";
+
+        const defaultTasks = [
+            // Easy / ship discovery
+            { id: "t1", title: "Ocean glam shot", note: "Photo proof. Make it dramatic.", pts: 5, proof: "photo" },
+            { id: "t2", title: "Find the quietest nook", note: "Photo proof. Bonus if it has a view.", pts: 4, proof: "photo" },
+            { id: "t3", title: "Waterslide / pool moment", note: "Photo proof near the pool area.", pts: 4, proof: "photo" },
+            { id: "t4", title: "Something with NCL branding", note: "Sign, logo, anything.", pts: 2, proof: "photo" },
+
+            // Food & fun
+            { id: "t5", title: "A dessert you didn’t plan on", note: "Photo proof. Sugar is a strategy.", pts: 3, proof: "photo" },
+            { id: "t6", title: "Try a new drink (any kind)", note: "Photo proof. Mocktail counts.", pts: 3, proof: "photo" },
+            { id: "t7", title: "A weird/funny menu item name", note: "Photo proof of the menu sign.", pts: 3, proof: "photo" },
+
+            // People & ship life (keep it respectful)
+            { id: "t8", title: "Best outfit sighting", note: "Describe it (no photos of strangers).", pts: 4, proof: "note" },
+            { id: "t9", title: "Ask a crew member a question", note: "Be kind. Write their answer.", pts: 4, proof: "note" },
+
+            // Bonus / harder
+            { id: "t10", title: "Find a schedule item you want tomorrow", note: "Screenshot or write it down.", pts: 5, proof: "note" },
+            { id: "t11", title: "Find the ship’s best selfie mirror", note: "Photo proof. Lighting matters.", pts: 4, proof: "photo" },
+            { id: "t12", title: "A hidden art piece / cool hallway", note: "Photo proof.", pts: 4, proof: "photo" }
+        ];
+
+        function loadState() {
+            try {
+                return JSON.parse(localStorage.getItem(STORE_KEY)) || null;
+            } catch {
+                return null;
+            }
+        }
+
+        function saveState(state) {
+            localStorage.setItem(STORE_KEY, JSON.stringify(state));
+        }
+
+        function buildInitialState() {
+            return {
+                teamA: "Jaekin + Kaitlin",
+                teamB: "Marianne + Joey",
+                deviceTeam: "A",
+                // each task can be claimed by A or B (or null)
+                claims: defaultTasks.reduce((acc, t) => (acc[t.id] = null, acc), {}),
+                // timer
+                timerEnd: null, // timestamp ms
+                durationSec: 45 * 60
+            };
+        }
+
+        const grid = document.getElementById("huntGrid");
+        const teamAInput = document.getElementById("teamA");
+        const teamBInput = document.getElementById("teamB");
+        const labelA = document.getElementById("labelA");
+        const labelB = document.getElementById("labelB");
+        const scoreAEl = document.getElementById("scoreA");
+        const scoreBEl = document.getElementById("scoreB");
+        const timerEl = document.getElementById("timer");
+        const startBtn = document.getElementById("startTimer");
+        const resetBtn = document.getElementById("resetHunt");
+        const deviceTeamSelect = document.getElementById("deviceTeam");
+
+        let state = loadState() || buildInitialState();
+
+        function computeScores() {
+            let a = 0, b = 0;
+            for (const t of defaultTasks) {
+                const c = state.claims[t.id];
+                if (c === "A") a += t.pts;
+                if (c === "B") b += t.pts;
+            }
+            return { a, b };
+        }
+
+        function render() {
+            // team labels
+            labelA.textContent = state.teamA || "Team A";
+            labelB.textContent = state.teamB || "Team B";
+            teamAInput.value = state.teamA || "";
+            teamBInput.value = state.teamB || "";
+            deviceTeamSelect.value = state.deviceTeam || "A";
+
+            // scores
+            const { a, b } = computeScores();
+            scoreAEl.textContent = a;
+            scoreBEl.textContent = b;
+
+            // tasks
+            if (grid) {
+                const deviceTeam = state.deviceTeam || "A";
+
+                grid.innerHTML = defaultTasks.map(t => {
+                    const claimed = state.claims[t.id]; // "A" | "B" | null
+                    const claimedClass = claimed ? `is-claimed is-${claimed}` : "";
+                    const isMine = claimed === deviceTeam;
+
+                    const btnText = isMine ? "Claimed ✓" : "Claim";
+
+                    return `
+                      <article class="huntItem ${claimedClass}" data-id="${t.id}">
+                        <div class="huntItem__top">
+                          <h3 class="huntItem__title">${t.title}</h3>
+                          <div class="huntItem__pts">${t.pts} pts</div>
+                        </div>
+
+                        <p class="huntItem__note">${t.note}</p>
+
+                        <div class="huntItem__actions huntItem__actions--single">
+                          <button class="btn btn--ghost huntToggle" type="button">${btnText}</button>
+                        </div>
+                      </article>
+                    `;
+                }).join("");
+
+                // wire events (single toggle)
+                grid.querySelectorAll(".huntItem").forEach(card => {
+                    const id = card.getAttribute("data-id");
+                    const btn = card.querySelector(".huntToggle");
+
+                    btn.addEventListener("click", () => {
+                        const deviceTeam = state.deviceTeam || "A";
+                        const current = state.claims[id];
+
+                        // toggle: if already claimed by this team => unclaim, else claim for this team
+                        state.claims[id] = (current === deviceTeam) ? null : deviceTeam;
+
+                        saveState(state);
+                        render();
+                    });
+                });
+            }
+
+        }
+
+        // Timer
+        let timerTick = null;
+
+        function fmt(sec) {
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+        }
+
+        function updateTimer() {
+            if (!state.timerEnd) {
+                timerEl.textContent = fmt(state.durationSec);
+                return;
+            }
+            const now = Date.now();
+            const left = Math.max(0, Math.floor((state.timerEnd - now) / 1000));
+            timerEl.textContent = fmt(left);
+            if (left <= 0) {
+                clearInterval(timerTick);
+                timerTick = null;
+                // fun little nudge
+                timerEl.textContent = "00:00";
+            }
+        }
+
+        function startTimer() {
+            state.timerEnd = Date.now() + (state.durationSec * 1000);
+            saveState(state);
+            if (timerTick) clearInterval(timerTick);
+            timerTick = setInterval(updateTimer, 500);
+            updateTimer();
+        }
+
+        // inputs
+        teamAInput.addEventListener("change", () => {
+            state.teamA = teamAInput.value.trim() || "Team A";
+            saveState(state);
+            render();
+        });
+
+        teamBInput.addEventListener("change", () => {
+            state.teamB = teamBInput.value.trim() || "Team B";
+            saveState(state);
+            render();
+        });
+
+        deviceTeamSelect.addEventListener("change", () => {
+            state.deviceTeam = deviceTeamSelect.value; // "A" or "B"
+            saveState(state);
+            render();
+        });
+
+
+        startBtn.addEventListener("click", startTimer);
+
+        resetBtn.addEventListener("click", () => {
+            state = buildInitialState();
+            saveState(state);
+            if (timerTick) clearInterval(timerTick);
+            timerTick = null;
+            render();
+            updateTimer();
+        });
+
+        // init
+        render();
+        updateTimer();
+        if (state.timerEnd) {
+            timerTick = setInterval(updateTimer, 500);
+        }
+    </script>
 </body>
 </html>
