@@ -1913,3 +1913,8 @@ body {
     .costItem--total span {
         color: var(--accent);
     }
+
+.rule--important {
+    border-color: rgba(42,168,255,.35);
+    background: rgba(42,168,255,.08);
+}
