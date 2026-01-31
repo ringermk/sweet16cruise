@@ -1784,3 +1784,132 @@ body {
         background: rgba(0,209,199,.10);
         border-color: rgba(0,209,199,.28);
     }
+
+/* ===============================
+   Day 5 — Roatan, Honduras
+   =============================== */
+
+.imgContained {
+    display: block;
+    max-width: 100%;
+    max-height: 320px; /* 👈 key line */
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 12px;
+    cursor: zoom-in;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.checklist--twoCol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+}
+
+@media (max-width: 640px) {
+    .checklist--twoCol {
+        grid-template-columns: 1fr;
+    }
+}
+
+.costTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 0.95rem;
+}
+
+    .costTable th,
+    .costTable td {
+        padding: 14px 12px;
+        text-align: left;
+    }
+
+    .costTable thead th {
+        color: var(--muted);
+        font-weight: 600;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .costTable tbody tr {
+        border-bottom: 1px solid var(--borderSoft);
+    }
+
+    .costTable td:nth-child(2),
+    .costTable td:nth-child(3) {
+        white-space: nowrap;
+    }
+
+.costTable__total td {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+@media (max-width: 640px) {
+    .costTable thead {
+        display: none;
+    }
+
+    .costTable tr {
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .costTable td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+    }
+
+        .costTable td::before {
+            content: attr(data-label);
+            color: var(--muted);
+            font-weight: 500;
+        }
+}
+
+.costCards {
+    display: grid;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.costItem {
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--borderSoft);
+}
+
+.costItem__label {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.costItem__prices {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+    .costItem__prices span {
+        font-weight: 700;
+    }
+
+    .costItem__prices small {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--muted);
+        font-weight: 500;
+    }
+
+.costItem--total {
+    border-color: var(--accent);
+    background: rgba(42,168,255,0.08);
+}
+
+    .costItem--total .costItem__label,
+    .costItem--total span {
+        color: var(--accent);
+    }

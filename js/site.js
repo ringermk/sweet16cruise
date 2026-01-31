@@ -16,8 +16,9 @@
             { href: "day-0.html", label: "Day 0 (Travel Day)" },
             { href: "day-1.html", label: "Day 1 (Sail Away)" },
             { href: "day-2.html", label: "Day 2 (Sea Day)" },
-            { href: "day-3.html", label: "Day 3 (Cozumel)" },
-            { href: "day-4.html", label: "Day 4 (Harvest Caye)" }
+            { href: "day-3.html", label: "Day 3 (Cozumel, Mexico)" },
+            { href: "day-4.html", label: "Day 4 (Harvest Caye, Belize)" },
+            { href: "day-5.html", label: "Day 5 (Roatán, Honduras)" }
         ]
     };
 
