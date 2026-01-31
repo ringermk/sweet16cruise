@@ -1,0 +1,305 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dining • Norwegian Viva</title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Match your site fonts (if you already use these elsewhere) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="site-header"></div>
+
+    <header class="hero hero--dining">
+        <div class="hero__overlay"></div>
+        <div class="hero__content page">
+            <p class="kicker">Onboard Dining</p>
+            <h1 class="hero__title">Restaurants on Norwegian Viva</h1>
+            <p class="hero__subtitle">
+                Complimentary favorites first. Specialty splurges next. Haven spots get an honorable mention at the end.
+            </p>
+
+            <div class="chips" role="tablist" aria-label="Dining filters">
+                <button class="chip is-active" type="button" data-filter="all">All</button>
+                <button class="chip" type="button" data-filter="complimentary">Included</button>
+                <button class="chip" type="button" data-filter="specialty">Specialty</button>
+                <button class="chip" type="button" data-filter="haven">Haven</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="section" aria-labelledby="included-title">
+            <div class="section__head">
+                <h2 id="included-title">Included with your cruise</h2>
+                <p class="muted">No cover charge — just show up hungry.</p>
+            </div>
+            <div id="grid-complimentary" class="grid"></div>
+        </section>
+
+        <section class="section" aria-labelledby="specialty-title">
+            <div class="section__head">
+                <h2 id="specialty-title">Specialty dining</h2>
+                <p class="muted">Extra cost (or covered by dining package). Price level shows the “splurge factor.”</p>
+            </div>
+            <div id="grid-specialty" class="grid"></div>
+        </section>
+
+        <section class="section section--soft" aria-labelledby="haven-title">
+            <div class="section__head">
+                <h2 id="haven-title">Haven (honorary mention)</h2>
+                <p class="muted">
+                    These venues are reserved for Haven guests — it's where the froo froo people eat.
+                </p>
+            </div>
+            <div id="grid-haven" class="grid"></div>
+        </section>
+    </main>
+
+    <script>
+    // If you already have a shared header loader, keep using it.
+    // Example:
+    // fetch("partials/header.html").then(r => r.text()).then(html => (document.querySelector("#site-header").innerHTML = html));
+
+    const restaurants = [
+      // Complimentary (included)
+      {
+        name: "Hudson's",
+        category: "complimentary",
+        deck: "Deck 7",
+        cuisine: "Main Dining",
+        vibe: "Nicer / sit-down",
+        priceLevel: 0,
+        img: "img/dining/hudsons.jpg",
+        note: "270° aft views + classic favorites with some fun new twists."
+      },
+      {
+        name: "The Commodore Room",
+        category: "complimentary",
+        deck: "Deck 6",
+        cuisine: "Main Dining",
+        vibe: "Nicer / sit-down",
+        priceLevel: 0,
+        img: "img/dining/commodore-room.jpg",
+        note: "Comfortable, refined, and reliably delicious."
+      },
+      {
+        name: "Indulge Food Hall",
+        category: "complimentary",
+        deck: "Deck 8",
+        cuisine: "Food Hall (global stations)",
+        vibe: "Casual",
+        priceLevel: 0,
+        img: "img/dining/indulge.jpg",
+        note: "Grab a seat and order from multiple cuisines — easy group win."
+      },
+      {
+        name: "The Local Bar & Grill",
+        category: "complimentary",
+        deck: "Deck 8",
+        cuisine: "Pub comfort food",
+        vibe: "Casual",
+        priceLevel: 0,
+        img: "img/dining/the-local.jpg",
+        note: "Classic pub fare — and it’s a great late-night option."
+      },
+      {
+        name: "Surfside Café",
+        category: "complimentary",
+        deck: "Deck 17",
+        cuisine: "Buffet",
+        vibe: "Casual",
+        priceLevel: 0,
+        img: "img/dining/surfside-cafe.jpg",
+        note: "Bright, quick, and plentiful — ideal for grab-and-go moments."
+      },
+      {
+        name: "Surfside Grill",
+        category: "complimentary",
+        deck: "Deck 17",
+        cuisine: "Pool grill",
+        vibe: "Casual",
+        priceLevel: 0,
+        img: "img/dining/surfside-grill.jpg",
+        note: "Burgers + fries + sunshine. Vacation math checks out."
+      },
+
+      // Specialty (extra cost / cover charge)
+      {
+        name: "Onda by Scarpetta",
+        category: "specialty",
+        deck: "Deck 8",
+        cuisine: "Italian",
+        vibe: "Nicer / date-night",
+        priceLevel: 3,
+        img: "img/dining/onda.jpg",
+        note: "Modern Italian with Scarpetta flair."
+      },
+      {
+        name: "Le Bistro",
+        category: "specialty",
+        deck: "Deck 7",
+        cuisine: "French",
+        vibe: "Upscale",
+        priceLevel: 4,
+        img: "img/dining/le-bistro.jpg",
+        note: "Classic French plates in a cozy, elegant setting."
+      },
+      {
+        name: "Cagney's Steakhouse",
+        category: "specialty",
+        deck: "Deck 6",
+        cuisine: "Steakhouse",
+        vibe: "Upscale",
+        priceLevel: 4,
+        img: "img/dining/cagneys.jpg",
+        note: "Steakhouse tradition — great for a celebratory dinner."
+      },
+      {
+        name: "Los Lobos",
+        category: "specialty",
+        deck: "Deck 8",
+        cuisine: "Mexican",
+        vibe: "Lively",
+        priceLevel: 2,
+        img: "img/dining/los-lobos.jpg",
+        note: "Modern Mexican flavors (and yes, it’s margarita-friendly)."
+      },
+      {
+        name: "Palomar",
+        category: "specialty",
+        deck: "Deck 17",
+        cuisine: "Mediterranean seafood",
+        vibe: "Casually sophisticated",
+        priceLevel: 4,
+        img: "img/dining/palomar.jpg",
+        note: "Seafood + European vibes with a great drink list."
+      },
+      {
+        name: "Hasuki",
+        category: "specialty",
+        deck: "Deck 7",
+        cuisine: "Japanese grill (teppanyaki-style)",
+        vibe: "Show + dinner",
+        priceLevel: 3,
+        img: "img/dining/hasuki.jpg",
+        note: "Shared-table energy — sizzling grill, fun atmosphere."
+      },
+      {
+        name: "Nama",
+        category: "specialty",
+        deck: "Deck 7",
+        cuisine: "Sushi",
+        vibe: "Nicer / calm",
+        priceLevel: 3,
+        img: "img/dining/nama.jpg",
+        note: "Sushi bar for when you want something lighter (but still fancy)."
+      },
+      {
+        name: "Food Republic",
+        category: "specialty",
+        deck: "Deck 17",
+        cuisine: "Asian–Latin fusion (tapas style)",
+        vibe: "Trendy / shareable",
+        priceLevel: 2,
+        img: "img/dining/food-republic.jpg",
+        note: "Small plates made for sharing — perfect for groups."
+      },
+
+      // Haven (honorary mention)
+      {
+        name: "The Haven Restaurant",
+        category: "haven",
+        deck: "Deck 16",
+        cuisine: "Various cuisines",
+        vibe: "Private fine dining",
+        priceLevel: 0,
+        img: "img/dining/haven-restaurant.jpg",
+        note: "Exclusive to Haven guests — private, elevated dining experience."
+      }
+    ];
+
+    const $$ = (sel, parent = document) => Array.from(parent.querySelectorAll(sel));
+
+    function dollars(level) {
+      if (!level) return "";
+      return "• " + "$".repeat(level);
+    }
+
+    function badgeFor(r) {
+      if (r.category === "complimentary") return `<span class="badge badge--ok">Included</span>`;
+      if (r.category === "specialty") return `<span class="badge badge--warn">Specialty</span>`;
+      return `<span class="badge badge--soft">Haven</span>`;
+    }
+
+    function card(r) {
+      const price = (r.category === "specialty")
+        ? `<span class="meta__item meta__price">${dollars(r.priceLevel)}</span>`
+        : "";
+
+      const extra = (r.category === "haven")
+        ? `<div class="callout">Reserved for Haven guests.</div>`
+        : "";
+
+      return `
+        <article class="card card--restaurant" data-category="${r.category}">
+          <div class="card__media">
+            <img src="${r.img}" alt="${r.name}" loading="lazy" />
+            <div class="card__badge">${badgeFor(r)}</div>
+          </div>
+
+          <div class="card__body">
+            <h3 class="card__title">${r.name}</h3>
+
+            <div class="meta">
+              <span class="meta__item"><strong>${r.deck}</strong></span>
+              <span class="meta__dot">•</span>
+              <span class="meta__item">${r.cuisine}</span>
+              <span class="meta__dot">•</span>
+              <span class="meta__item">${r.vibe}</span>
+              ${price ? `<span class="meta__dot">•</span>${price}` : ""}
+            </div>
+
+            <p class="card__text">${r.note}</p>
+            ${extra}
+          </div>
+        </article>
+      `;
+    }
+
+    function render() {
+      const comp = restaurants.filter(r => r.category === "complimentary");
+      const spec = restaurants.filter(r => r.category === "specialty");
+      const haven = restaurants.filter(r => r.category === "haven");
+
+      document.querySelector("#grid-complimentary").innerHTML = comp.map(card).join("");
+      document.querySelector("#grid-specialty").innerHTML = spec.map(card).join("");
+      document.querySelector("#grid-haven").innerHTML = haven.map(card).join("");
+    }
+
+    function applyFilter(filter) {
+      const allCards = $$(".card--restaurant");
+      allCards.forEach(c => {
+        const cat = c.getAttribute("data-category");
+        const show = (filter === "all") || (cat === filter);
+        c.style.display = show ? "" : "none";
+      });
+
+      $$(".chip").forEach(b => b.classList.toggle("is-active", b.dataset.filter === filter));
+    }
+
+    render();
+    applyFilter("all");
+
+    $$(".chip").forEach(btn => {
+      btn.addEventListener("click", () => applyFilter(btn.dataset.filter));
+    });
+    </script>
+</body>
+</html>
