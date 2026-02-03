@@ -12,7 +12,7 @@
             { href: "stateroom.html", label: "Stateroom" },
             { href: "https://www.youtube.com/watch?v=fNJnH5-TtR0", label: "Ship Video", external: true },
             { href: "https://www.ncl.com/cruise-ships/norwegian-viva/deck-plans#filter=deck-15", label: "Deck Plans", external: true },
-            { href: "dining.html", label: "Dining" },
+            /*{ href: "dining.html", label: "Dining" },*/
         ],
         Trip: [
             { href: "day-0.html", label: "Day 0 (Travel Day)" },
