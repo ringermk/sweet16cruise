@@ -96,7 +96,7 @@ body {
     z-index: 2;
     max-width: 980px;
     margin: 0 auto;
-    padding: 18px 18px 22px;
+    padding: 28px 34px 32px;
     background: var(--card);
     border: 1px solid rgba(255,255,255,.10);
     border-radius: 18px;
@@ -439,7 +439,8 @@ body {
 
 
 .countdownLine {
-    margin: 18px 0 6px;
+    margin: 18px auto 6px;
+    width: fit-content;
     padding: 16px 14px;
     border-radius: 16px;
     background: rgba(255,255,255,.06);
@@ -1933,11 +1934,6 @@ body {
     position: absolute;
     inset: 0;
     background: radial-gradient(1200px 500px at 20% 20%, rgba(0,0,0,.15), rgba(0,0,0,.65));
-}
-
-.hero__content {
-    position: relative;
-    padding: 56px 0;
 }
 
 .hero__title {
