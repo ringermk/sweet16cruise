@@ -6,7 +6,8 @@
         Prep: [
             { href: "packing.html", label: "Packing List" },
             { href: "itinerary.html", label: "Itinerary" },
-            { href: "safety.html", label: "Safety" }
+            { href: "safety.html", label: "Safety" },
+            { href: "online-spending.html", label: "Online Spending" }
         ],
         Ship: [
             { href: "stateroom.html", label: "Stateroom" },
